@@ -95,13 +95,10 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="/#search"
-                        
-                    >
+                    <a  class="sidebar-button-link st-search-show-outputs" href="http://www.baidu.com" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">Pesquisar</span>
+                    <span class="sidebar-button-desc">搜索</span>
                 </a>
         </li>
         
@@ -231,9 +228,8 @@ Quick<br>
             <img id="about-card-picture" src="<%- url_for(theme.image_dir + '/' + theme.author.picture) %>"/>
         <% } %>
             <h4 id="about-card-name"><%= config.author %></h4>
-        <% if (__('nothing is impossible')) { %>
-            <h5 id="about-card-bio"><%- markdown(__('nothing is impossible')) %></h5>
-	    <h5 id="about-card-bio"><%- markdown(__('nothing is impossible')) %></h5>
+        <% if (__('author.bio')) { %>
+            <h5 id="about-card-bio"><%- markdown(__('author.bio')) %></h5>
         <% } %>
         <% if (__('author.job')) { %>
             <h5 id="about-card-job">
