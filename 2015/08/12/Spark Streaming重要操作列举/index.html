@@ -71,7 +71,7 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2015-08-12T06:42:22.789Z"><a href="/2015/08/12/Spark Streaming重要操作列举/">Mié., Ago. 12 2015, 2:42:22 pm</a></time>
+      <time datetime="2015-08-12T06:48:13.465Z"><a href="/2015/08/12/Spark Streaming重要操作列举/">Mié., Ago. 12 2015, 2:48:13 pm</a></time>
 
   
     <h1 class="title"></h1>
@@ -84,7 +84,7 @@
     </header>
     <div class="entry">
       
-        <h2 id="title：Spark_Streaming重要操作列举">title：Spark Streaming重要操作列举</h2><h2 id="离散流简介">离散流简介</h2><p>在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两部分.<br><a id="more"></a></p>
+        <h2 id="title：_Spark_Streaming重要操作列举">title： Spark Streaming重要操作列举</h2><h2 id="离散流简介">离散流简介</h2><p>在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两部分.<br><a id="more"></a></p>
 <h2 id="离散流转换">离散流转换</h2><p>类似RDD，转换允许输入的流可以被修改。DStreams支持多种转换的类似Spark RDD的使用。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(func)</span><br></pre></td></tr></table></figure></p>
 <p>源DSTREAM的每个元素通过函数func返回一个新的 DSTREAM。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flatMap(func)</span><br></pre></td></tr></table></figure></p>
 <p>类似的map()，但每个输入项可以被映射到0或者更多的输出项<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(func)</span><br></pre></td></tr></table></figure></p>
@@ -147,10 +147,10 @@
           <div class="clearfix"></div>
           <nav id="pagination">
   
-    <a href="/2015/08/12/PageRank算法详解/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+    <a href="/2015/08/12/朴素贝叶斯算法详解/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
   
   
-    <a href="/2015/08/12/决策树/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+    <a href="/2015/08/12/PageRank算法详解/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
