@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>决策树算法详解 | kexu blog</title>
+  <meta name="author" content="kexu">
+  
+  <meta name="description" content="java spark">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="决策树算法详解"/>
+  <meta property="og:site_name" content="kexu blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="kexu blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-368771XX-X']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2015-08-12T01:47:46.276Z"><a href="/2015/08/12/决策树/">Mié., Ago. 12 2015, 9:47:46 am</a></time>
+
+  
+    <h1 class="title">决策树算法详解</h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;决策树也是常用的分类算法之一,与其它分类算法相比具有分类精度高,生成模型简单,不用预先了解模型的特征等优点.决策树算法有ID3,C4.5,CART等几种,一个决策树包含三种类型的节点： 1.决策节点——通常用矩形框来表式 2.机会节点——通常用圆圈来表式 3.终结点——通常用三角形来表示,如下图:<br><br><center><img src="/决策树算法详解/J1.png" alt=""></center><br><a id="more"></a><br><br>&nbsp;&nbsp;&nbsp;&nbsp;为了直观起见,大家可以去玩一款游戏-<a href="http://cn.akinator.com/" target="_blank" rel="external">网络天才(akinator)</a>,这个游戏是通过询问一些问题来猜出你心中所想的人,准确率非常高,是不是很神奇呢?它的原理就类似决策树,建立一个树模型,通过一个个的问题来一步步的排除其余的人,最终猜出你心中所想的人.比如现在我们就来模拟一下.<br>我们通过一段对话来判断对方是否适合交往.</p>
+<center>是否有过婚史?&nbsp;no<br>是否有房子?&nbsp;yes<br>是否有车?&nbsp;yes<br>能不能接受异地恋?&nbsp;yes<br>那我们交往嘛.</center>
+
+<p>这个就利用了决策树的思想,通过对节点的不同的选择决策得到不同的结果.我们把这个转换为决策树模型看看.<br><br><img src="/决策树算法详解/J3.png" alt=""></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;决策树算法就是为了解决这个问题,在大家玩akinator游戏的时候应该会发现,在游戏开始的前几个问题一般都是你描述的对象真实存在吗?你描述的对象是女性吗?等等这些问题,这些在一开始就会筛选掉一大半的人物,如果把这些问题放在后面的话就会浪费很多时间,这说明了选择合理分支是很重要的,如何将这些众多的分支属性按照其价值大小排序就是我们要考虑的问题.而如何判定信息属性的价值就涉及到信息论的知识了,首先普及下数学概念.<br>信息是个抽象的概念,直到1948年，香农提出了“信息熵”的概念，才解决了对信息的量化度量问题.<br>信息熵的数学定义为:<br><br><img src="/决策树算法详解/J4.png" alt=""></p>
+<p>条件熵的定义为:<br><br><img src="/决策树算法详解/J6.png" alt=""></p>
+<p>信息增益的定义为<br><br><img src="/决策树算法详解/J5.png" alt=""></p>
+<p>在这里我将主要介绍ID3及C4.5,先看ID3，<br>ID3算法的思想就是计算出每个属性的信息增益,把最大者作为分裂属性。<br>首先构造如下数据：<br><br><img src="/决策树算法详解/J7.png" alt=""></p>
+<p>U1和U2都是条件维度，分别决定了是否购买，首先我们来算信息熵：<br><br><img src="/决策树算法详解/J8.png" alt=""><br><br>条件熵：<br><br><img src="/决策树算法详解/J9.png" alt=""><br><br><img src="/决策树算法详解/J10.png" alt=""><br>信息增益:<br><br><img src="/决策树算法详解/J11.png" alt=""><br><br><img src="/决策树算法详解/J12.png" alt=""></p>
+<p>由于Gains（U，U1）&lt;Gains（U，U2）,表示U2消除信源的不确定性更大，则会采用U2作为最佳分组变量。但是采用ID3算法时遇到类别值多的输入变量比类别值少的输入变量有更多的机会成为当前最佳分组变量时就会不精确了。为了消除这种情况，我们就更多的采用C4.5算法。C4.5中的信息增益定义为：</p>
+<p><img src="/决策树算法详解/13.png" alt=""></p>
+<p>具体计算结果就不计算了。<br>接下来我用MLlib里面的DecisionTree算法写个例子测试下，DecisionTree可作回归也可作分类，如果是回归则调用trainRegressor方法，如果是分类就调用trainClassifier方法， 其中的数据为官方源码自带的sample_libsvm_data.txt数据，这个数据用的标准的libsvm格式，对很多算法都适用。<br>源码如下：<br><br></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.mllib.linalg.<span class="type">Vectors</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.&#123;<span class="type">SparkContext</span>, <span class="type">SparkConf</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by kexu on 15-8-4.</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.mllib.tree.<span class="type">DecisionTree</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.mllib.tree.model.<span class="type">DecisionTreeModel</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.mllib.util.<span class="type">MLUtils</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">mllibDecisionTreesTest</span> &#123;</span>		</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>(</span>args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">conf</span> =</span> <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">"mllibDecisionTreesTest"</span>).setMaster(<span class="string">"local[2]"</span>)</span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">sc</span> =</span> <span class="keyword">new</span> <span class="type">SparkContext</span>(conf)</span><br><span class="line"><span class="comment">// Load and parse the data file.</span></span><br><span class="line"><span class="comment">// val data = MLUtils.loadLibSVMFile(sc, "/home/kexu/下载/spark-1.4.1/data/mllib/sample_libsvm_data.txt")</span></span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">data</span> <span class="title">=MLUtils</span>.<span class="title">loadLibSVMFile</span>(</span>sc,<span class="string">"/home/kexu/桌面/libsvm1"</span>)</span><br><span class="line"><span class="comment">// Split the data into training and test sets (30% held out for testing)</span></span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">splits</span> =</span> data.randomSplit(<span class="type">Array</span>(<span class="number">0.7</span>, <span class="number">0.3</span>))</span><br><span class="line"><span class="function"><span class="keyword">val</span> (</span>trainingData, testData) = (splits(<span class="number">0</span>), splits(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 训练一个决策树模型</span></span><br><span class="line"><span class="comment">//  空 categoricalFeaturesInfo 指示所有特征是连续的.</span></span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">categoricalFeaturesInfo</span> =</span> <span class="type">Map</span>[<span class="type">Int</span>, <span class="type">Int</span>]()</span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">impurity</span> =</span> <span class="string">"variance"</span>  <span class="comment">//方差</span></span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">maxDepth</span> =</span> <span class="number">5</span>   <span class="comment">//最大树深度</span></span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">maxBins</span> =</span> <span class="number">32</span>   <span class="comment">//最大的划分数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//val model = DecisionTree.trainRegressor(trainingData, categoricalFeaturesInfo, impurity,</span></span><br><span class="line"><span class="comment">// maxDepth, maxBins)</span></span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">model</span> =</span> <span class="type">DecisionTree</span>.trainClassifier(trainingData, <span class="number">2</span>, categoricalFeaturesInfo,</span><br><span class="line">  <span class="string">"gini"</span>, maxDepth, maxBins)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 测试实例的评估模型和测试误差</span></span><br><span class="line"> <span class="function"><span class="keyword">val</span> <span class="title">labelsAndPredictions</span> =</span> testData.map &#123; point =&gt;</span><br><span class="line">  <span class="function"><span class="keyword">val</span> <span class="title">prediction</span> =</span> model.predict(point.features)</span><br><span class="line">  (point.label, prediction)</span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">val</span> <span class="title">testMSE</span> =</span> labelsAndPredictions.map &#123; <span class="keyword">case</span> (v, p) =&gt; math.pow((v - p), <span class="number">2</span>) &#125;.mean()</span><br><span class="line"> println(<span class="string">"Test Mean Squared Error = "</span> + testMSE)</span><br><span class="line"> println(<span class="string">"Learned regression tree model:\n"</span> + model.toDebugString)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Save and load model</span></span><br><span class="line"> <span class="comment">// model.save(sc, "myModelPath3")</span></span><br><span class="line"> <span class="comment">// val sameModel = DecisionTreeModel.load(sc, "myModelPath3")</span></span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br>这个例子是个回归算法，调用了trainRegressor，如果是写分类的话和这个类似，我们看一下输出</p>
+<p><br><img src="/决策树算法详解/j2.png" alt=""><br><br></p>
+<p>其中的Test Mean Squared Error是均方差误差，下面的是决策树模型结构，显示出树的节点和深度信息等，一个If….Else表示一个分支。<br>MLlib中的决策树算法还有其它变种，有兴趣的朋友可以继续学习。</p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comentarios</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2015/08/12/决策树/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2015 kexu
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
+<script src="/js/gallery.js" type="text/javascript"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"your_id"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>
