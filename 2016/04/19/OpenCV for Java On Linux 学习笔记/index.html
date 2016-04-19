@@ -71,7 +71,7 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2016-04-19T04:34:21.902Z"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">Mar., Abr. 19 2016, 12:34:21 pm</a></time>
+      <time datetime="2016-04-19T04:40:12.995Z"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">Mar., Abr. 19 2016, 12:40:12 pm</a></time>
 
   
     <h1 class="title">OpenCV for Java On linux学习笔记</h1>
@@ -85,19 +85,24 @@
     <div class="entry">
       
         <h2 id="环境配置">环境配置</h2><h3 id="下载并安装Java_JDK">下载并安装Java JDK</h3><h3 id="下载安装Eclipse（Eclipse_IDE_for_Java_Developers）">下载安装Eclipse（Eclipse IDE for Java Developers）</h3><h3 id="下载安装openCV2-4-12_linux版本">下载安装openCV2.4.12 linux版本</h3><a id="more"></a>
-<p>安装前先下载OpenCV必要的依赖<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install cmake</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install ant</span><br></pre></td></tr></table></figure>
-<p><a href="http://opencv.org/downloads.html" target="_blank" rel="external">OpenCV2.4.12下载地址</a>,解压下载OpenCV的文件在您选择的位置,例如/home/sun/OpenCV2.4.12，进入OpenCV2.4.12目录，并在目录下创建build文件夹</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/sun/OpenCV2<span class="number">.4</span><span class="number">.12</span>/</span><br></pre></td></tr></table></figure>
-<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> build</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build</span><br></pre></td></tr></table></figure>
-<p>执行cmake命令</p>
+<p>安装前先下载OpenCV必要的依赖</p>
+<pre><code>sudo apt-get <span class="operator"><span class="keyword">install</span> cmake 
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> ant </span>
+</code></pre><p><a href="http://opencv.org/downloads.html" target="_blank" rel="external">OpenCV2.4.12下载地址</a>,解压下载OpenCV的文件在您选择的位置,例如/home/sun/OpenCV2.4.12，进入OpenCV2.4.12目录，并在目录下创建build文件夹</p>
+<pre><code><span class="keyword">cd</span> /home/<span class="keyword">sun</span>/OpenCV2.<span class="number">4.12</span>/ 
+<span class="built_in">mkdir</span> build
+<span class="keyword">cd</span> build 
+</code></pre><p>执行cmake命令</p>
 <pre><code><span class="keyword">cmake</span> - DBUILD_SHARED_LIBS = <span class="literal">OFF</span> ..
-</code></pre><p>不要忘记后面的点点<br>然后检查输出信息To be build里面有没有java<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/1.png" alt=""><br>如果没有则应该少了依赖，请检查cmake jdk等是否配置正确，如果有则</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span> -j8</span><br></pre></td></tr></table></figure>
-<p>执行完后，/build/bin/下面应该有一个opencv_2.4.12.jar这个jar包，这个jar包含Java绑定和所有OpenCV的东西，是一个本地动态库。</p>
-<h3 id="配置Eclipse">配置Eclipse</h3><p>新建一个Java工程<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/2.png" alt=""></p>
-<p>右键工程-&gt;Build Path-&gt;Configure Build Path,进入Java Build Path配置页面，然后点击Add Library<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/3.png" alt=""></p>
+</code></pre><p>不要忘记后面的点点<br>然后检查输出信息To be build里面有没有java</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/1.png" alt=""></p>
+<p>如果没有则应该少了依赖，请检查cmake jdk等是否配置正确，如果有则</p>
+<pre><code><span class="built_in">make</span> -j8
+</code></pre><p>执行完后，/build/bin/下面应该有一个opencv_2.4.12.jar这个jar包，这个jar包含Java绑定和所有OpenCV的东西，是一个本地动态库。</p>
+<h3 id="配置Eclipse">配置Eclipse</h3><p>新建一个Java工程</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/2.png" alt=""></p>
+<p>右键工程-&gt;Build Path-&gt;Configure Build Path,进入Java Build Path配置页面，然后点击Add Library</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/3.png" alt=""></p>
 <p>接下来按照图示操作：</p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/4.png" alt=""></p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/5.png" alt=""></p>
@@ -105,8 +110,10 @@
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/7.png" alt=""></p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/8.png" alt=""></p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/9.png" alt=""></p>
-<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/10.png" alt=""><br>点击finish结束,创建User Library的目的是为了方便导入OpenCV的依赖。</p>
-<h3 id="测试">测试</h3><p>在刚刚的工程里新建一个类<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/11.png" alt=""></p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/10.png" alt=""></p>
+<p>点击finish结束,创建User Library的目的是为了方便导入OpenCV的依赖。</p>
+<h3 id="测试">测试</h3><p>在刚刚的工程里新建一个类</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/11.png" alt=""></p>
 <p>在类文件里面编写如下测试代码：</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.CvType;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.Mat;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">"opencv_java244"</span>);</span><br><span class="line">        Mat m  = Mat.eye(<span class="number">3</span>, <span class="number">3</span>, CvType.CV_8UC1);</span><br><span class="line">        System.out.println(<span class="string">"m = "</span> + m.dump());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行该工程，如果在控制台看到如下输出就成功</p>
