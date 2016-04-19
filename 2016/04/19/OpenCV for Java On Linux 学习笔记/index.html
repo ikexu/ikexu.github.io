@@ -71,7 +71,7 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2016-04-19T06:35:01.707Z"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">Mar., Abr. 19 2016, 2:35:01 pm</a></time>
+      <time datetime="2016-04-19T15:42:09.846Z"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">Mar., Abr. 19 2016, 11:42:09 pm</a></time>
 
   
     <h1 class="title">OpenCV for Java On linux学习笔记</h1>
@@ -113,7 +113,19 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> a
 <p>点击Edit后在弹出的对话框中输入OpenCV/build/lib路径</p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/10.png" alt=""></p>
 <p>点击finish结束,创建User Library的目的是为了方便导入OpenCV的依赖。</p>
-<h3 id="测试">测试</h3><p>在刚刚的工程里新建一个类</p>
+<h3 id="配置Idea">配置Idea</h3><p>右键Module-&gt;Open Module Settings-&gt;Libraries</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/13.png" alt=""></p>
+<p>点击+号新建一个Libraries（选择Java）</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/14.png" alt=""></p>
+<p>在这里选择Build/bin/opencv-2412.jar（即刚刚生成的jar）<br>在Choose Modules里面选择你要使用到opencv的Module</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/15.png" alt=""></p>
+<p>然后在这样Open Module Settings中Apply，jar包就导入了，接下来配置lib路径</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/17.png" alt=""></p>
+<p>在上图中点HelloOpenCV（选择自己的工程）打开Edit Configurations</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/16.png" alt=""></p>
+<p>在VN options 设置参数：</p>
+<pre><code>-<span class="ruby"><span class="constant">Djava</span>.library.path=<span class="regexp">/home/sun</span><span class="regexp">/OpenCV2.4.12/build</span><span class="regexp">/lib  /</span><span class="regexp">/选择自己opencv lib库路径</span></span>
+</code></pre><h3 id="测试">测试</h3><p>在刚刚的工程里新建一个类</p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/11.png" alt=""></p>
 <p>在类文件里面编写如下测试代码：</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.CvType;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.Mat;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">"opencv_java244"</span>);</span><br><span class="line">        Mat m  = Mat.eye(<span class="number">3</span>, <span class="number">3</span>, CvType.CV_8UC1);</span><br><span class="line">        System.out.println(<span class="string">"m = "</span> + m.dump());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
