@@ -71,7 +71,7 @@
   <div class="post-content">
     <header>
       
-      <time datetime="2016-04-18T15:33:11.866Z"><a href="/2016/04/18/OpenCV for Java On Linux 学习笔记/">Lun., Abr. 18 2016, 11:33:11 pm</a></time>
+      <time datetime="2016-04-19T04:02:30.066Z"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">Mar., Abr. 19 2016, 12:02:30 pm</a></time>
 
   
     <h1 class="title">OpenCV for Java On linux学习笔记</h1>
@@ -84,15 +84,12 @@
     </header>
     <div class="entry">
       
-        <p>##环境配置</p>
-<p>####下载并安装Java JDK</p>
-<p>####下载安装Eclipse（Eclipse IDE for Java Developers）</p>
-<p>####下载安装openCV2.4.12 linux版本<br><a id="more"></a><br>安装前先下载OpenCV必要的依赖<br><figure class="highlight"><figcaption><span>apt-get install cmake```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo apt-get install ant</span><br></pre></td></tr></table></figure></p>
+        <h2 id="环境配置">环境配置</h2><h4 id="下载并安装Java_JDK">下载并安装Java JDK</h4><h4 id="下载安装Eclipse（Eclipse_IDE_for_Java_Developers）">下载安装Eclipse（Eclipse IDE for Java Developers）</h4><h4 id="下载安装openCV2-4-12_linux版本">下载安装openCV2.4.12 linux版本</h4><a id="more"></a>
+<p>安装前先下载OpenCV必要的依赖<br><figure class="highlight"><figcaption><span>apt-get install cmake```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo apt-get install ant</span><br></pre></td></tr></table></figure></p>
 <p><a href="http://opencv.org/downloads.html" target="_blank" rel="external">OpenCV2.4.12下载地址</a>,解压下载OpenCV的文件在您选择的位置,例如/home/sun/OpenCV2.4.12，进入OpenCV2.4.12目录，并在目录下创建build文件夹<br><figure class="highlight"><figcaption><span>/home/sun/OpenCV2.4.12/```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```mkdir build</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight"><figcaption><span>build```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#25191;&#34892;cmake&#21629;&#20196;&#10;```cmake -DBUILD_SHARED_LIBS=OFF ..``` &#19981;&#35201;&#24536;&#35760;&#21518;&#38754;&#30340;&#28857;&#28857;&#10;&#28982;&#21518;&#26816;&#26597;&#36755;&#20986;&#20449;&#24687;To be build&#37324;&#38754;&#26377;&#27809;&#26377;java&#10;![](http://7xt4et.com2.z0.glb.clouddn.com/1.png)&#10;&#22914;&#26524;&#27809;&#26377;&#21017;&#24212;&#35813;&#23569;&#20102;&#20381;&#36182;&#65292;&#35831;&#26816;&#26597;cmake jdk&#31561;&#26159;&#21542;&#37197;&#32622;&#27491;&#30830;&#65292;&#22914;&#26524;&#26377;&#21017;&#10;```make -j8</span><br></pre></td></tr></table></figure>
 <p>执行完后，/build/bin/下面应该有一个opencv_2.4.12.jar这个jar包，这个jar包含Java绑定和所有OpenCV的东西，是一个本地动态库。</p>
-<p>####配置Eclipse</p>
-<p>新建一个Java工程<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/2.png" alt=""></p>
+<h4 id="配置Eclipse">配置Eclipse</h4><p>新建一个Java工程<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/2.png" alt=""></p>
 <p>右键工程-&gt;Build Path-&gt;Configure Build Path,进入Java Build Path配置页面，然后点击Add Library<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/3.png" alt=""></p>
 <p>接下来按照图示操作：</p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/4.png" alt=""></p>
@@ -102,13 +99,13 @@
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/8.png" alt=""></p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/9.png" alt=""></p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/10.png" alt=""><br>点击finish结束,创建User Library的目的是为了方便导入OpenCV的依赖。</p>
-<p>####测试<br>在刚刚的工程里新建一个类<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/11.png" alt=""></p>
+<h4 id="测试">测试</h4><p>在刚刚的工程里新建一个类<br><img src="http://7xt4et.com2.z0.glb.clouddn.com/11.png" alt=""></p>
 <p>在类文件里面编写如下测试代码：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.CvType;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.Mat;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">"opencv_java244"</span>);</span><br><span class="line">        Mat m  = Mat.eye(<span class="number">3</span>, <span class="number">3</span>, CvType.CV_8UC1);</span><br><span class="line">        System.out.println(<span class="string">"m = "</span> + m.dump());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>运行该工程，如果在控制台看到如下输出就成功</p>
 <p><img src="http://7xt4et.com2.z0.glb.clouddn.com/12.png" alt=""></p>
 <h2 id="Create_a_simple_application">Create a simple application</h2><p>上面测试中创建一个简单的Java应用程序，接下来会讲解下代码</p>
-<figure class="highlight"><figcaption><span>//在项目中设置加载OpenCV的本地库```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);  &#26032;&#24314;&#19968;&#20010;Mat&#31867;</span><br></pre></td></tr></table></figure>
-<p>####Mat<br>Mat是OpenCV中的核心数据结构，Mat类用于表示一个多维的单通道或者多通道的稠密数组。能够用来保存实数或复数的向量、矩阵，灰度或彩色图像，立体元素，点云，张量以及直方图（高维的直方图使用SparseMat保存比较好）。简而言之，Mat就是用来保存多维的矩阵的。<br>而计算机处理图像则是把图像转化为矩阵处理，尺寸为 M × N 的图像可以用一个 M × N 的矩阵来表示<br>，矩阵的值则是图像该点的像素亮度。一般来说，灰度图用 2 维矩阵表示，彩色（多通道）图像用 3 维矩阵（M × N × 3）表示。对于图像显示来说，目前大部分设备都是用无符号 8 位整 数（类型为 CV_8U）表示像素亮度。<br>Mat的常见属性：</p>
+<figure class="highlight"><figcaption><span>//在项目中设置加载OpenCV的本地库```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">``` Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);  &#26032;&#24314;&#19968;&#20010;Mat&#31867;</span><br></pre></td></tr></table></figure>
+<h4 id="Mat">Mat</h4><p>Mat是OpenCV中的核心数据结构，Mat类用于表示一个多维的单通道或者多通道的稠密数组。能够用来保存实数或复数的向量、矩阵，灰度或彩色图像，立体元素，点云，张量以及直方图（高维的直方图使用SparseMat保存比较好）。简而言之，Mat就是用来保存多维的矩阵的。<br>而计算机处理图像则是把图像转化为矩阵处理，尺寸为 M × N 的图像可以用一个 M × N 的矩阵来表示<br>，矩阵的值则是图像该点的像素亮度。一般来说，灰度图用 2 维矩阵表示，彩色（多通道）图像用 3 维矩阵（M × N × 3）表示。对于图像显示来说，目前大部分设备都是用无符号 8 位整 数（类型为 CV_8U）表示像素亮度。<br>Mat的常见属性：</p>
 <ul>
 <li>data  uchar型的指针。Mat类分为了两个部分:矩阵头和指向矩阵数据部分的指针，data就是指向矩阵数据的指针</li>
 <li>dims 矩阵的维度，例如5*6矩阵是二维矩阵，则dims=2，三维矩阵dims=3，取值应该大于或等于 2<br>rows  矩阵的行数</li>
@@ -199,7 +196,7 @@
           <nav id="pagination">
   
   
-    <a href="/2016/04/18/Java基础之JDBC/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+    <a href="/2016/04/19/PageRank算法详解/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
   
   <div class="clearfix"></div>
 </nav>
@@ -215,7 +212,7 @@
 
   
       <!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread" data-thread-key="/2016/04/18/OpenCV for Java On Linux 学习笔记/"></div>
+<div class="ds-thread" data-thread-key="/2016/04/19/OpenCV for Java On Linux 学习笔记/"></div>
 <!-- Duoshuo Comment END -->
   
 </section>
