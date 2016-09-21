@@ -1,742 +1,1623 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
 <head>
-  <meta charset="utf-8">
-  
-  <title>kexu blog</title>
-  <meta name="author" content="kexu">
-  
-  <meta name="description" content="java spark">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
 
   
-  <meta property="og:site_name" content="kexu blog"/>
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
 
   
-    <meta property="og:image" content="undefined"/>
+  
+  
   
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="kexu blog" type="application/atom+xml">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" type="text/css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
-<link rel="stylesheet" href="/css/style.css" type="text/css">
-  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-368771XX-X']);
-  _gaq.push(['_trackPageview']);
+    
+    
+  
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="java spark scala ������">
+<meta property="og:type" content="website">
+<meta property="og:title" content="kexu blog">
+<meta property="og:url" content="http://meitianxiaoxu.github.io/index.html">
+<meta property="og:site_name" content="kexu blog">
+<meta property="og:description" content="java spark scala ������">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kexu blog">
+<meta name="twitter:description" content="java spark scala ������">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
 </script>
 
+
+
+
+  <link rel="canonical" href="http://meitianxiaoxu.github.io/"/>
+
+  <title> kexu blog </title>
 </head>
 
-<body>
-  <header id="header" class='normal_mode'>
-    <nav id="main-nav">
-  <ul class='container'>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-  </header>
-  <div id="content" class="container">
-    <div id="cover">
-	<div id="profile" alt="http://b.zol-img.com.cn/desk/bizhi/image/3/1600x900/1377756101108.jpg">
-		<a href="/">
-			<div class="logo">
-				<img src="/logo.png" alt="Profile Picture">
-			</div>
-			<div id="title">kexu blog</div>
-		</a>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-		
-		 <ul class="my-socials">
   
-  <li>
-  	<a href="https://github.com/your_id" class="github" target="_blank">
-  		<i class="fa fa-github"></i>
-  	</a>
-  </li>
+
+
+
+
+
+
+
+
+
+
   
-  <li>
-  	<a href="http://weibo.com/your_id" class="weibo" target="_blank">
-  		<i class="fa fa-weibo"></i>
-  	</a>
-  </li>
   
- 
-</ul>
-	</div>
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kexu blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
 </div>
 
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
 </div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-07-20T14:56:17.786Z"><a href="/2016/07/20/利用HAProxy代理hadoop集群对外服务并做负载均衡/">Mié., Jul. 20 2016, 10:56:17 pm</a></time>
 
-  
-    <h1 class="title"><a href="/2016/07/20/利用HAProxy代理hadoop集群对外服务并做负载均衡/">利用HAProxy代理hadoop集群对外服务并做负载均衡</a></h1>
+<nav class="site-nav">
   
 
-
-
-<div class="clear"></div>
+  
+    <ul id="menu" class="menu">
       
-    </header>
-    <div class="entry">
-      
-        <h2 id="需求">需求</h2><p>在企业级hadoop集群使用过程中有时需要外部网络来访问hadoop内部网络,比如外部网络访问hdfs中文件,但是根据hdfs文件访问流程知道客户端并不直接从namenode获取数据,而是通过namenode查询到数据位置后,返回给客户端一个datanode地址供客户端与datanode建立通信,这时问题就来了,namenode返回的地址为hadoop内部地址,外部网络无法访问,此时客户端怎么获取到数据呢?<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/07/20/利用HAProxy代理hadoop集群对外服务并做负载均衡/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
         
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
         
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/07/20/利用HAProxy代理hadoop集群对外服务并做负载均衡/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/07/20/利用HAProxy代理hadoop集群对外服务并做负载均衡/">&nbsp;
-              </span>
-            </a>
-          </div>
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
         
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
       
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-07-20T14:24:53.414Z"><a href="/2016/07/20/CarbonData学习笔记/">Mié., Jul. 20 2016, 10:24:53 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/07/20/CarbonData学习笔记/">Apache CarbonData 学习笔记</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="简介">简介</h2><p>CarbonData是使用先进的列式存储，索引，压缩和编码技术，以提高计算效率及更快交互式查询一个新的Hadoop本地文件格式，反过来这将帮助更快的查询超过PB级的数据。<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/07/20/CarbonData学习笔记/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
         
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
         
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/07/20/CarbonData学习笔记/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/07/20/CarbonData学习笔记/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
       
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
 
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
       
-      <time datetime="2016-04-19T15:42:09.846Z"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">Mar., Abr. 19 2016, 11:42:09 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/">OpenCV for Java On linux学习笔记</a></h1>
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
   
 
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="环境配置">环境配置</h2><h3 id="下载并安装Java_JDK">下载并安装Java JDK</h3><h3 id="下载安装Eclipse（Eclipse_IDE_for_Java_Developers）">下载安装Eclipse（Eclipse IDE for Java Developers）</h3><h3 id="下载安装openCV2-4-12_linux版本">下载安装openCV2.4.12 linux版本</h3>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/19/OpenCV for Java On Linux 学习笔记/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/19/OpenCV for Java On Linux 学习笔记/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/19/OpenCV for Java On Linux 学习笔记/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
   
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
+    <div class="site-search">
       
-      <time datetime="2016-04-19T04:16:21.069Z"><a href="/2016/04/19/自定义Recevier详解/">Mar., Abr. 19 2016, 12:16:21 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/19/自定义Recevier详解/">自定义Recevier详解</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="简介">简介</h2><p>Spark Streaming可以接收实时流数据从任意的具有内置支持的数据源(比如 Flume, Kafka, Kinesis, files, sockets等等),这就要求开发人员实现一个接收器，用于接收来自有关数据源的数据。当然这个步骤不是必须的,因为在Spark内部的一些”Stream”方法中已经封装了类似Recevier接收器的操作.但是在数据传输的过程中可靠性是很重要的,应用在接受到源信息后,要对源发出确认信息,这种灵活的操作就得采用自定义Recevier.<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/19/自定义Recevier详解/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/19/自定义Recevier详解/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/19/自定义Recevier详解/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-04-19T04:07:02.236Z"><a href="/2016/04/19/Spark Streaming重要操作列举/">Mar., Abr. 19 2016, 12:07:02 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/19/Spark Streaming重要操作列举/">Spark Streaming重要操作列举</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="离散流简介">离散流简介</h2><p>在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两部分.<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/19/Spark Streaming重要操作列举/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/19/Spark Streaming重要操作列举/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/19/Spark Streaming重要操作列举/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-04-19T04:00:40.528Z"><a href="/2016/04/19/PageRank算法详解/">Mar., Abr. 19 2016, 12:00:40 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/19/PageRank算法详解/">PageRank算法详解</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="PageRank简介">PageRank简介</h2><p>今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。<br>PageRank，即网页排名，又称网页级别、Google左侧排名或佩奇排名,最先是由Google提出的,为Google的精确搜索做出了很大贡献,它是一种根据网页之间相互的超链接计算的技术,可以计算网页排名,而在Spark Graphx里面.它能度量一个图中每个顶点的重要程度.应用的场景很广,比如说社交系统的可以据此来计算网友粉丝排名,计算网页排名等等.<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/19/PageRank算法详解/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/19/PageRank算法详解/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/19/PageRank算法详解/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-04-18T13:28:34.164Z"><a href="/2016/04/18/Java基础之JDBC/">Lun., Abr. 18 2016, 9:28:34 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/18/Java基础之JDBC/">Java基础之JDBC</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="概念">概念</h2><p>JDBC（Java Data Base Connectivity,java数据库连接）是一种用于执行SQL语句的Java API，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。JDBC提供了一种基准，据此可以构建更高级的工具和接口，使数据库开发人员能够编写数据库应用程序。<br>它提供了访问各种数据库（我们使用Mysql）的通用接口，帮助程序猿与数据库建立连接、发送操作数据库的语句并处理结果。</p>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/18/Java基础之JDBC/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/18/Java基础之JDBC/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/18/Java基础之JDBC/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-04-18T13:28:34.132Z"><a href="/2016/04/18/朴素贝叶斯算法详解/">Lun., Abr. 18 2016, 9:28:34 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/18/朴素贝叶斯算法详解/">朴素贝叶斯算法详解</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h2 id="贝叶斯算法简介">贝叶斯算法简介</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;贝叶斯分类算法是统计学的一种分类方法，它是一类利用概率统计知识进行分类的算法。贝叶斯算法可分为朴素贝叶斯算法,贝叶斯信念网络,树增强型朴素贝叶斯算法(TAN)等等.而其中运用最广的是朴素贝叶斯算法,朴素贝叶斯分类算法(Naive Bayes)可以与决策树和神经网络分类算法相媲美，该算法能运用到大型数据库中，而且方法简单、分类准确率高、速度快。<br>&nbsp;&nbsp;&nbsp;&nbsp;它的应用场景非常广,我们可以通过已知的训练数据来为未知的数据分类,训练数据越大,结果越接近真实值,我们可以用中医看病来分析这个过程,医生看到病人不能立马就得出结果,而是通过观察病人的各种情况然后推断出病因,这种过程其实是把病人的特征和自己记忆中病例的特征进行比对,和贝叶斯算法对训练数据比对有异曲同工之妙.<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/18/朴素贝叶斯算法详解/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/18/朴素贝叶斯算法详解/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/18/朴素贝叶斯算法详解/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-04-18T13:28:34.054Z"><a href="/2016/04/18/决策树/">Lun., Abr. 18 2016, 9:28:34 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/18/决策树/">决策树算法详解</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;决策树也是常用的分类算法之一,与其它分类算法相比具有分类精度高,生成模型简单,不用预先了解模型的特征等优点.决策树算法有ID3,C4.5,CART等几种,一个决策树包含三种类型的节点： 1.决策节点——通常用矩形框来表式 2.机会节点——通常用圆圈来表式 3.终结点——通常用三角形来表示,如下图:<br><br><center><img src="/决策树算法详解/J1.png" alt=""></center><br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/18/决策树/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/18/决策树/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/18/决策树/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-      <time datetime="2016-04-18T13:28:34.009Z"><a href="/2016/04/18/XX-Net翻墙/">Lun., Abr. 18 2016, 9:28:34 pm</a></time>
-
-  
-    <h1 class="title"><a href="/2016/04/18/XX-Net翻墙/">利用XX-Net翻墙</a></h1>
-  
-
-
-
-<div class="clear"></div>
-      
-    </header>
-    <div class="entry">
-      
-        <h1 id="简介">简介</h1><p>XX-Net功能强大操作简单是goAgent与gogotester的集成版。其翻墙的原理还是利用了GoAgent,因此还是得申请google账号， 建立专案……<br>
-      
-    </div>
-    <footer>
-      
-        <div class="alignleft">
-            <a href="/2016/04/18/XX-Net翻墙/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
-        </div>
-        
-        
-          <div class="alignright"> 
-            <a href="http://meitianxiaoxu.github.io/2016/04/18/XX-Net翻墙/#comment" class="comment-link">
-              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2016/04/18/XX-Net翻墙/">&nbsp;
-              </span>
-            </a>
-          </div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-<nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
-
-<script src="/js/jquery.anystretch.min.js" type="text/javascript"></script>
-<script src="/js/cover.js" type="text/javascript"></script>
-
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div>
-  
-  &copy; 2016 kexu
-  
-</div>
-Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
-
-<div class="clearfix"></div></footer>
-  
-<script src="/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
-<script src="/js/gallery.js" type="text/javascript"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
-
-
-
-
-    <script type="text/javascript">
-        (function(){
-
-            $(window).scroll(function(){
-
-                var scrollTop = $(window).scrollTop();
-                if ( scrollTop >200 ){
-                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
-                } else{
-                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
-                }
-
-            });
-
-        })();
-    </script>
-
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript">
-  (function($){
-    $('.fancybox').fancybox({
-      'titlePosition': 'inside'
-    });
-  })(jQuery);
-  </script>
-
-
-
-    
-    <script type="text/javascript">
-      var duoshuoQuery = {short_name:"meitianxiaoxu"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = 'http://static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0] 
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
 
 <script type="text/javascript">
-  
-  $(function(){
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
 
-    $('.title').hover(
-      function() {      
-        $(this).stop().animate(
-          {'marginLeft': '10px'}, 200
-        );   
-      }, 
-      function() {       
-        $(this).stop().animate({'marginLeft': '0px'}, 200);      
-      
-    });   
-
-  });
-
+  _st('install', 'zEusoDy6zaKswXvbiSjc','2.0.0');
 </script>
 
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/自定义Recevier详解/" itemprop="url">
+                  自定义Recevier详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:47+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spark/" itemprop="url" rel="index">
+                    <span itemprop="name">spark</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="简介">简介</h2><p>Spark Streaming可以接收实时流数据从任意的具有内置支持的数据源(比如 Flume, Kafka, Kinesis, files, sockets等等),这就要求开发人员实现一个接收器，用于接收来自有关数据源的数据。当然这个步骤不是必须的,因为在Spark内部的一些”Stream”方法中已经封装了类似Recevier接收器的操作.但是在数据传输的过程中可靠性是很重要的,应用在接受到源信息后,要对源发出确认信息,这种灵活的操作就得采用自定义Recevier.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/自定义Recevier详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/朴素贝叶斯算法详解/" itemprop="url">
+                  朴素贝叶斯算法详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:41+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="贝叶斯算法简介">贝叶斯算法简介</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;贝叶斯分类算法是统计学的一种分类方法，它是一类利用概率统计知识进行分类的算法。贝叶斯算法可分为朴素贝叶斯算法,贝叶斯信念网络,树增强型朴素贝叶斯算法(TAN)等等.而其中运用最广的是朴素贝叶斯算法,朴素贝叶斯分类算法(Naive Bayes)可以与决策树和神经网络分类算法相媲美，该算法能运用到大型数据库中，而且方法简单、分类准确率高、速度快。<br>&nbsp;&nbsp;&nbsp;&nbsp;它的应用场景非常广,我们可以通过已知的训练数据来为未知的数据分类,训练数据越大,结果越接近真实值,我们可以用中医看病来分析这个过程,医生看到病人不能立马就得出结果,而是通过观察病人的各种情况然后推断出病因,这种过程其实是把病人的特征和自己记忆中病例的特征进行比对,和贝叶斯算法对训练数据比对有异曲同工之妙.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/朴素贝叶斯算法详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/利用HAProxy代理hadoop集群对外服务并做负载均衡/" itemprop="url">
+                  利用HAProxy代理hadoop集群对外服务并做负载均衡
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:31+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="需求">需求</h2><p>在企业级hadoop集群使用过程中有时需要外部网络来访问hadoop内部网络,比如外部网络访问hdfs中文件,但是根据hdfs文件访问流程知道客户端并不直接从namenode获取数据,而是通过namenode查询到数据位置后,返回给客户端一个datanode地址供客户端与datanode建立通信,这时问题就来了,namenode返回的地址为hadoop内部地址,外部网络无法访问,此时客户端怎么获取到数据呢?<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/利用HAProxy代理hadoop集群对外服务并做负载均衡/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/决策树/" itemprop="url">
+                  决策树算法详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:24+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;决策树也是常用的分类算法之一,与其它分类算法相比具有分类精度高,生成模型简单,不用预先了解模型的特征等优点.决策树算法有ID3,C4.5,CART等几种,一个决策树包含三种类型的节点： 1.决策节点——通常用矩形框来表式 2.机会节点——通常用圆圈来表式 3.终结点——通常用三角形来表示,如下图:<br><br><center><img src="/决策树算法详解/J1.png" alt=""></center><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/决策树/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/XX-Net翻墙/" itemprop="url">
+                  利用XX-Net翻墙
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:16+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/恶趣味/" itemprop="url" rel="index">
+                    <span itemprop="name">恶趣味</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="简介">简介</h1><p>XX-Net功能强大操作简单是goAgent与gogotester的集成版。其翻墙的原理还是利用了GoAgent,因此还是得申请google账号， 建立专案……<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/XX-Net翻墙/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/Spark Streaming重要操作列举/" itemprop="url">
+                  Spark Streaming重要操作列举
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:08+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spark/" itemprop="url" rel="index">
+                    <span itemprop="name">spark</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="离散流简介">离散流简介</h2><p>在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两部分.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/Spark Streaming重要操作列举/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/PageRank算法详解/" itemprop="url">
+                  PageRank算法详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:01+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="PageRank简介">PageRank简介</h2><p>今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。<br>PageRank，即网页排名，又称网页级别、Google左侧排名或佩奇排名,最先是由Google提出的,为Google的精确搜索做出了很大贡献,它是一种根据网页之间相互的超链接计算的技术,可以计算网页排名,而在Spark Graphx里面.它能度量一个图中每个顶点的重要程度.应用的场景很广,比如说社交系统的可以据此来计算网友粉丝排名,计算网页排名等等.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/PageRank算法详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/OpenCV for Java On Linux 学习笔记/" itemprop="url">
+                  OpenCV for Java On linux学习笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:28:53+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">opencv</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="环境配置">环境配置</h2><h3 id="下载并安装Java_JDK">下载并安装Java JDK</h3><h3 id="下载安装Eclipse（Eclipse_IDE_for_Java_Developers）">下载安装Eclipse（Eclipse IDE for Java Developers）</h3><h3 id="下载安装openCV2-4-12_linux版本">下载安装openCV2.4.12 linux版本</h3>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/OpenCV for Java On Linux 学习笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/Java基础之JDBC/" itemprop="url">
+                  Java基础之JDBC
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:28:46+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="概念">概念</h2><p>JDBC（Java Data Base Connectivity,java数据库连接）是一种用于执行SQL语句的Java API，可以为多种关系数据库提供统一访问，它由一组用Java语言编写的类和接口组成。JDBC提供了一种基准，据此可以构建更高级的工具和接口，使数据库开发人员能够编写数据库应用程序。<br>它提供了访问各种数据库（我们使用Mysql）的通用接口，帮助程序猿与数据库建立连接、发送操作数据库的语句并处理结果。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/Java基础之JDBC/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/CarbonData学习笔记/" itemprop="url">
+                  Apache CarbonData 学习笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:27:57+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/carbondata/" itemprop="url" rel="index">
+                    <span itemprop="name">carbondata</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="简介">简介</h2><p>CarbonData是使用先进的列式存储，索引，压缩和编码技术，以提高计算效率及更快交互式查询一个新的Hadoop本地文件格式，反过来这将帮助更快的查询超过PB级的数据。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/21/CarbonData学习笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="kexu" />
+          <p class="site-author-name" itemprop="name">kexu</p>
+          <p class="site-description motion-element" itemprop="description">java spark scala ������</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
 
 </body>
 </html>

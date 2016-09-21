@@ -1,0 +1,653 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="spark,算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="PageRank简介今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。PageRank，即网页排名，又称网页级别、Google左侧排">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PageRank算法详解">
+<meta property="og:url" content="http://meitianxiaoxu.github.io/2016/09/21/PageRank算法详解/index.html">
+<meta property="og:site_name" content="kexu blog">
+<meta property="og:description" content="PageRank简介今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。PageRank，即网页排名，又称网页级别、Google左侧排">
+<meta property="og:image" content="http://meitianxiaoxu.github.io/PageRank算法详解/1.png">
+<meta property="og:image" content="http://meitianxiaoxu.github.io/PageRank算法详解/2.png">
+<meta property="og:image" content="http://meitianxiaoxu.github.io/PageRank算法详解/3.png">
+<meta property="og:image" content="http://meitianxiaoxu.github.io/PageRank算法详解/4.png">
+<meta property="og:image" content="http://meitianxiaoxu.github.io/PageRank算法详解/5.png">
+<meta property="og:image" content="http://meitianxiaoxu.github.io/PageRank算法详解/6.png">
+<meta property="og:updated_time" content="2016-09-21T09:29:01.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PageRank算法详解">
+<meta name="twitter:description" content="PageRank简介今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。PageRank，即网页排名，又称网页级别、Google左侧排">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://meitianxiaoxu.github.io/2016/09/21/PageRank算法详解/"/>
+
+  <title> PageRank算法详解 | kexu blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kexu blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'zEusoDy6zaKswXvbiSjc','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PageRank算法详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:29:01+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="PageRank简介">PageRank简介</h2><p>今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。<br>PageRank，即网页排名，又称网页级别、Google左侧排名或佩奇排名,最先是由Google提出的,为Google的精确搜索做出了很大贡献,它是一种根据网页之间相互的超链接计算的技术,可以计算网页排名,而在Spark Graphx里面.它能度量一个图中每个顶点的重要程度.应用的场景很广,比如说社交系统的可以据此来计算网友粉丝排名,计算网页排名等等.<br><a id="more"></a></p>
+<h2 id="算法原理">算法原理</h2><p>pagerank的思路是让链接”投票”,然后得出”投票”结果,比如说现在有A,B,C,D四个网页,B,C,D三个网页都指向A网页,那么A网页的PageRank值将是其它三个网页的总和,也就是<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">PR</span><span class="params">(A)</span></span>=<span class="function"><span class="title">PR</span><span class="params">(B)</span></span>+<span class="function"><span class="title">PR</span><span class="params">(C)</span></span>+<span class="function"><span class="title">PR</span><span class="params">(D)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>但是在实际情况中这样的”投票”方式是不准确的,因为每个网页的重要程度是不一样的,因此我们为每个网页加上了权值,现在我们在原来的假设上增加以下改变,我们将B网页指向C,D网页,将C网页也指向D网页,那么现在<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">PR</span><span class="params">(A)</span></span>=<span class="function"><span class="title">PR</span><span class="params">(B)</span></span>/<span class="number">3</span>+<span class="function"><span class="title">PR</span><span class="params">(C)</span></span>/<span class="number">2</span>+<span class="function"><span class="title">PR</span><span class="params">(D)</span></span>/<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看出链接出去的网页将平分原网页的PR值,这只是最简单的情况,对复杂的情况来说我们可以将其转化为矩阵计算,假设有n个网页,每个网页的初始值为<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N0=[<span class="number">1</span>/<span class="keyword">N</span>,<span class="number">1</span>/<span class="keyword">N</span>,<span class="number">1</span>/<span class="keyword">N</span>..<span class="number">.1</span>/<span class="keyword">N</span>],则<span class="keyword">N</span>(r)=A*<span class="keyword">N</span>(r-<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>而A是每个网页的链接矩阵,由数学知识可以知道PR是可以收敛的,将会无限趋近于N,这个N就是真实的排名情况,大致的原理就是这样.</p>
+<h2 id="Spark实现">Spark实现</h2><p>Spark PageRank的部分源码如下<br><img src="/PageRank算法详解/1.png" alt=""><br>现在我写个Demo测试一下PageRank,首先构造一个图<br><img src="/PageRank算法详解/2.png" alt=""><br>我们使用PageRank算法,可以调用GraphOps下面的<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pageRank<span class="keyword"></span><br><span class="line">static</span>PageRank</span><br><span class="line">personalizedPageRank<span class="keyword"></span><br><span class="line">static</span>PersonalizedPageRank</span><br></pre></td></tr></table></figure></p>
+<p>四个方法,它们内部封装了PageRank算法,我们直接使用就是<br>首先介绍第一种动态的PageRank,PageRank分动态和静态(staticPageRank),区别在于动态的PageRank是按照2次迭代的结果差异性来停止迭代,如果2次迭代的差异小于给定的参数趋近值则停止迭代,趋近值越小数据越精确；而静态的staticPageRank则是按照固定的次数迭代,方法参数中要带这个固定值,固定迭代次数越多,数据越精确.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.pageRank(<span class="number">0.001</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
+<p>此处用的是动态的方式,pageRank带的第一个参数是一个Double类型的趋近值,小于这个趋近值迭代结束,第二个参数是可选的,表示的是图的各顶点的初始PR值,如果不写则默认为0.15.在进行pagerank算法时只与图结构的链接关系有关,与边的值和顶点的值都没有关系,程序结果如下:<br><img src="/PageRank算法详解/3.png" alt=""><br>静态的实现方式为:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.staticPageRank(<span class="number">10</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
+<p>staticPageRank的参数也有2个,第一个是Int类型的表示迭代次数,第二个和pageRank一样也是Double类型的表示初始PR值,默认为0.15,程序结果如下:<br><img src="/PageRank算法详解/4.png" alt=""><br>剩下的personalizedPageRank,和staticPersonalizedPageRank,与前面一对不同的是它是个性化的pagerank,与普通pagerank不同的是,它能指定从哪个顶点开始迭代,而且可以解决”PR黑洞”问题,回到我们开始的假设问题,有A,B,C,D四个网页,B,C,D三个网页都指向A网页,在这里,A网页只有指向它的没有指出去的,而B,C,D网页只有指出去的没有指进来的,专业点说A的出度为0,这样每一次迭代都会吞噬掉B,C,D的PR值,最终结果就是B,C,D的PR值为0,而personalizedPageRank能将这种出度为0的网页的PR值按照一定的比例分配给别的网页,从而避免”黑洞”的出现<br>personalizedPageRank也分动静态之分,首先看动态的:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.personalizedPageRank(<span class="number">4</span>,<span class="number">0.01</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
+<p>它有三个参数,第一个参数表示的是开始迭代的源点VertexId,第二个参数表示的是Double类型的趋近值,小于这个趋近值迭代结束,第三个参数是可选的,为Double类型的表示初始PR值,默认也为0.15,程序结果如下:<br><img src="/PageRank算法详解/5.png" alt=""><br>动态个性化pagerank实现方式为:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.staticPersonalizedPageRank(<span class="number">4</span>,<span class="number">10</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
+<p>它也有三个参数,第一个和前面一样,表示的是开始迭代的源点VertexId,第二个参数表示的迭代的固定次数,第三个表示的是初始PR值,同样的是可选的,不写默认为0.15,程序结果如下:<br><img src="/PageRank算法详解/6.png" alt=""><br>好了,PageRank就介绍完了,你学会了吗?</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spark/" rel="tag">#spark</a>
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/21/OpenCV for Java On Linux 学习笔记/" rel="next" title="OpenCV for Java On linux学习笔记">
+                <i class="fa fa-chevron-left"></i> OpenCV for Java On linux学习笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/21/Spark Streaming重要操作列举/" rel="prev" title="Spark Streaming重要操作列举">
+                Spark Streaming重要操作列举 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="kexu" />
+          <p class="site-author-name" itemprop="name">kexu</p>
+          <p class="site-description motion-element" itemprop="description">java spark scala ������</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PageRank简介"><span class="nav-number">1.</span> <span class="nav-text">PageRank简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法原理"><span class="nav-number">2.</span> <span class="nav-text">算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark实现"><span class="nav-number">3.</span> <span class="nav-text">Spark实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,768 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,opencv," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="环境配置下载并安装Java JDK下载安装Eclipse（Eclipse IDE for Java Developers）下载安装openCV2.4.12 linux版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV for Java On linux学习笔记">
+<meta property="og:url" content="http://meitianxiaoxu.github.io/2016/09/21/OpenCV for Java On Linux 学习笔记/index.html">
+<meta property="og:site_name" content="kexu blog">
+<meta property="og:description" content="环境配置下载并安装Java JDK下载安装Eclipse（Eclipse IDE for Java Developers）下载安装openCV2.4.12 linux版本">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/1.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/2.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/3.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/4.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/5.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/6.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/7.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/8.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/9.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/10.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/13.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/14.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/15.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/17.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/16.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/11.png">
+<meta property="og:image" content="http://7xt4et.com2.z0.glb.clouddn.com/12.png">
+<meta property="og:updated_time" content="2016-09-21T09:28:53.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenCV for Java On linux学习笔记">
+<meta name="twitter:description" content="环境配置下载并安装Java JDK下载安装Eclipse（Eclipse IDE for Java Developers）下载安装openCV2.4.12 linux版本">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://meitianxiaoxu.github.io/2016/09/21/OpenCV for Java On Linux 学习笔记/"/>
+
+  <title> OpenCV for Java On linux学习笔记 | kexu blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kexu blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'zEusoDy6zaKswXvbiSjc','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                OpenCV for Java On linux学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:28:53+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">opencv</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="环境配置">环境配置</h2><h3 id="下载并安装Java_JDK">下载并安装Java JDK</h3><h3 id="下载安装Eclipse（Eclipse_IDE_for_Java_Developers）">下载安装Eclipse（Eclipse IDE for Java Developers）</h3><h3 id="下载安装openCV2-4-12_linux版本">下载安装openCV2.4.12 linux版本</h3><a id="more"></a>
+<p>安装前先下载OpenCV必要的依赖</p>
+<pre><code>sudo apt-get <span class="operator"><span class="keyword">install</span> cmake 
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> ant </span>
+</code></pre><p><a href="http://opencv.org/downloads.html" target="_blank" rel="external">OpenCV2.4.12下载地址</a>,解压下载OpenCV的文件在您选择的位置,例如/home/sun/OpenCV2.4.12，进入OpenCV2.4.12目录，并在目录下创建build文件夹</p>
+<pre><code><span class="keyword">cd</span> /home/<span class="keyword">sun</span>/OpenCV2.<span class="number">4.12</span>/ 
+<span class="built_in">mkdir</span> build
+<span class="keyword">cd</span> build 
+</code></pre><p>执行cmake命令</p>
+<pre><code><span class="keyword">cmake</span> - DBUILD_SHARED_LIBS = <span class="literal">OFF</span> ..
+</code></pre><p>不要忘记后面的点点<br>然后检查输出信息To be build里面有没有java</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/1.png" alt=""></p>
+<p>如果没有则应该少了依赖，请检查cmake jdk等是否配置正确，如果有则</p>
+<pre><code><span class="built_in">make</span> -j8
+</code></pre><p>执行完后，/build/bin/下面应该有一个opencv_2.4.12.jar这个jar包，这个jar包含Java绑定和所有OpenCV的东西，是一个本地动态库。</p>
+<h3 id="配置Eclipse">配置Eclipse</h3><p>新建一个Java工程</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/2.png" alt=""></p>
+<p>右键工程-&gt;Build Path-&gt;Configure Build Path,进入Java Build Path配置页面，然后点击Add Library</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/3.png" alt=""></p>
+<p>接下来按照图示操作：</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/4.png" alt=""></p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/5.png" alt=""></p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/6.png" alt=""></p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/7.png" alt=""></p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/8.png" alt=""></p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/9.png" alt=""></p>
+<p>点击Edit后在弹出的对话框中输入OpenCV/build/lib路径</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/10.png" alt=""></p>
+<p>点击finish结束,创建User Library的目的是为了方便导入OpenCV的依赖。</p>
+<h3 id="配置Idea">配置Idea</h3><p>右键Module-&gt;Open Module Settings-&gt;Libraries</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/13.png" alt=""></p>
+<p>点击+号新建一个Libraries（选择Java）</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/14.png" alt=""></p>
+<p>在这里选择Build/bin/opencv-2412.jar（即刚刚生成的jar）<br>在Choose Modules里面选择你要使用到opencv的Module</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/15.png" alt=""></p>
+<p>然后在这样Open Module Settings中Apply，jar包就导入了，接下来配置lib路径</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/17.png" alt=""></p>
+<p>在上图中点HelloOpenCV（选择自己的工程）打开Edit Configurations</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/16.png" alt=""></p>
+<p>在VN options 设置参数：</p>
+<pre><code>-<span class="ruby"><span class="constant">Djava</span>.library.path=<span class="regexp">/home/sun</span><span class="regexp">/OpenCV2.4.12/build</span><span class="regexp">/lib  /</span><span class="regexp">/选择自己opencv lib库路径</span></span>
+</code></pre><h3 id="测试">测试</h3><p>在刚刚的工程里新建一个类</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/11.png" alt=""></p>
+<p>在类文件里面编写如下测试代码：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.CvType;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> org.opencv.core.Mat;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">"opencv_java244"</span>);</span><br><span class="line">        Mat m  = Mat.eye(<span class="number">3</span>, <span class="number">3</span>, CvType.CV_8UC1);</span><br><span class="line">        System.out.println(<span class="string">"m = "</span> + m.dump());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行该工程，如果在控制台看到如下输出就成功</p>
+<p><img src="http://7xt4et.com2.z0.glb.clouddn.com/12.png" alt=""></p>
+<h2 id="Create_a_simple_application">Create a simple application</h2><p>上面测试中创建一个简单的Java应用程序，接下来会讲解下代码</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.loadLibrary(Core.NATIVE_LIBRARY_NAME); <span class="comment">//在项目中设置加载OpenCV的本地库</span></span><br><span class="line">   <span class="keyword">Mat</span> <span class="keyword">mat</span> = <span class="keyword">Mat</span>.eye(3, 3, CvType.CV_8UC1);  <span class="comment">//新建一个Mat类</span></span><br></pre></td></tr></table></figure>
+<h3 id="Mat">Mat</h3><p>Mat是OpenCV中的核心数据结构，Mat类用于表示一个多维的单通道或者多通道的稠密数组。能够用来保存实数或复数的向量、矩阵，灰度或彩色图像，立体元素，点云，张量以及直方图（高维的直方图使用SparseMat保存比较好）。简而言之，Mat就是用来保存多维的矩阵的。<br>而计算机处理图像则是把图像转化为矩阵处理，尺寸为 M × N 的图像可以用一个 M × N 的矩阵来表示<br>，矩阵的值则是图像该点的像素亮度。一般来说，灰度图用 2 维矩阵表示，彩色（多通道）图像用 3 维矩阵（M × N × 3）表示。对于图像显示来说，目前大部分设备都是用无符号 8 位整 数（类型为 CV_8U）表示像素亮度。<br>Mat的常见属性：</p>
+<ul>
+<li>data  uchar型的指针。Mat类分为了两个部分:矩阵头和指向矩阵数据部分的指针，data就是指向矩阵数据的指针</li>
+<li>dims 矩阵的维度，例如5*6矩阵是二维矩阵，则dims=2，三维矩阵dims=3，取值应该大于或等于 2<br>rows  矩阵的行数</li>
+<li>cols  矩阵的列数，如果矩阵超过 2 维，rows和cols这两个变量的值都为-1<br>size 矩阵的大小，size(cols,rows),如果矩阵的维数大于2，则是size(-1,-1)</li>
+<li>channels 矩阵元素拥有的通道数，例如常见的彩色图像，每一个像素由RGB三部分组成，则channels = 3</li>
+<li>refcount 指向引用计数的指针，如果数据是由用户分配的，则为 NULL </li>
+<li>type 表示了矩阵中元素的类型以及矩阵的通道个数，它是一系列的预定义的常量，其命名规则为CV_(位数）+（数据类型）+（通道数）。具体的有以下值： </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>CV_8UC1</th>
+<th>CV_8UC2</th>
+<th>CV_8UC3</th>
+<th>CV_8UC4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CV_8SC1</td>
+<td>CV_8SC2</td>
+<td>CV_8SC3</td>
+<td>CV_8SC4</td>
+</tr>
+<tr>
+<td>CV_16UC1</td>
+<td>CV_16UC2</td>
+<td>CV_16UC3</td>
+<td>CV_16UC4</td>
+<td></td>
+</tr>
+<tr>
+<td>CV_16SC1</td>
+<td>CV_16SC2</td>
+<td>CV_16SC3</td>
+<td>CV_16SC4</td>
+<td></td>
+</tr>
+<tr>
+<td>CV_32SC1</td>
+<td>CV_32SC2</td>
+<td>CV_32SC3</td>
+<td>CV_32SC4</td>
+</tr>
+<tr>
+<td>CV_32FC1</td>
+<td>CV_32FC2</td>
+<td>CV_32FC3</td>
+<td>CV_32FC4</td>
+</tr>
+<tr>
+<td>CV_64FC1</td>
+<td>CV_64FC2</td>
+<td>CV_64FC3</td>
+<td>CV_64FC4</td>
+</tr>
+</tbody>
+</table>
+<p>这里U（unsigned integer）表示的是无符号整数，S（signed integer）是有符号整数，F（float）是浮点数,例如：CV_16UC2，表示的是元素类型是一个16位的无符号整数，通道为2.<br>C1，C2，C3，C4则表示通道是1,2,3,4 ,type一般是在创建Mat对象时设定，如果要取得Mat的元素类型，则无需使用type，使用下面的depth</p>
+<ul>
+<li>depth 矩阵中元素的一个通道的数据类型，这个值和type是相关的。例如 type为 CV_16SC2，一个2通道的16位的有符号整数。那么，depth则是CV_16S。depth也是一系列的预定义值，<br>将type的预定义值去掉通道信息就是depth值:<br>CV_8U CV_8S CV_16U CV_16S CV_32S CV_32F CV_64F</li>
+<li>elemSize 矩阵一个元素占用的字节数，例如：type是CV_16SC3，那么elemSize = 3 * 16 / 8 = 6 bytes</li>
+<li>elemSize1 矩阵元素一个通道占用的字节数，例如：type是CV_16CS3，那么elemSize1 = 16  / 8 = 2 bytes = elemSize / channels</li>
+</ul>
+<p>Mat.eye表示一个单位矩阵，我们设置它（3×3）和它的元件的类型的尺寸(CvType.CV_8UC1)</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/opencv/" rel="tag">#opencv</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/21/Java基础之JDBC/" rel="next" title="Java基础之JDBC">
+                <i class="fa fa-chevron-left"></i> Java基础之JDBC
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/21/PageRank算法详解/" rel="prev" title="PageRank算法详解">
+                PageRank算法详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="kexu" />
+          <p class="site-author-name" itemprop="name">kexu</p>
+          <p class="site-description motion-element" itemprop="description">java spark scala ������</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载并安装Java_JDK"><span class="nav-number">1.1.</span> <span class="nav-text">下载并安装Java JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载安装Eclipse（Eclipse_IDE_for_Java_Developers）"><span class="nav-number">1.2.</span> <span class="nav-text">下载安装Eclipse（Eclipse IDE for Java Developers）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载安装openCV2-4-12_linux版本"><span class="nav-number">1.3.</span> <span class="nav-text">下载安装openCV2.4.12 linux版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Eclipse"><span class="nav-number">1.4.</span> <span class="nav-text">配置Eclipse</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Idea"><span class="nav-number">1.5.</span> <span class="nav-text">配置Idea</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">1.6.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create_a_simple_application"><span class="nav-number">2.</span> <span class="nav-text">Create a simple application</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mat"><span class="nav-number">2.1.</span> <span class="nav-text">Mat</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
