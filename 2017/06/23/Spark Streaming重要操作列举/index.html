@@ -1,0 +1,735 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="spark," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="离散流简介在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark Streaming重要操作列举">
+<meta property="og:url" content="http://ikexu.github.io/2017/06/23/Spark Streaming重要操作列举/index.html">
+<meta property="og:site_name" content="kexu blog">
+<meta property="og:description" content="离散流简介在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两">
+<meta property="og:image" content="http://ikexu.github.io/Spark Streaming重要操作列举/1.png">
+<meta property="og:image" content="http://ikexu.github.io/Spark Streaming重要操作列举/2.png">
+<meta property="og:image" content="http://ikexu.github.io/Spark Streaming重要操作列举/3.png">
+<meta property="og:updated_time" content="2016-09-21T09:29:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark Streaming重要操作列举">
+<meta name="twitter:description" content="离散流简介在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://ikexu.github.io/2017/06/23/Spark Streaming重要操作列举/"/>
+
+  <title> Spark Streaming重要操作列举 | kexu blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kexu blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'zEusoDy6zaKswXvbiSjc','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spark Streaming重要操作列举
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-23T19:32:57+08:00" content="2017-06-23">
+              2017-06-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spark/" itemprop="url" rel="index">
+                    <span itemprop="name">spark</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/23/Spark Streaming重要操作列举/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/23/Spark Streaming重要操作列举/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="离散流简介">离散流简介</h2><p>在Spark Streaming中新增加了一个重要概念就是离散流(DStreams),它代表了一个连续的数据流，或从数据源接收到的，或通过将输入流中产生处理后的数据流。在内部，它是由RDDS的连续序列表示，这是Spark的一个不可改变的，分布式的数据集抽象。任何在DStream上使用的操作都会转化为底层RDDS操作。而DStream最重要的就是输入,转换,以及输出,今天介绍的将是后面的两部分.<br><a id="more"></a></p>
+<h2 id="离散流转换">离散流转换</h2><p>类似RDD，转换允许输入的流可以被修改。DStreams支持多种转换的类似Spark RDD的使用。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(func)</span><br></pre></td></tr></table></figure></p>
+<p>源DSTREAM的每个元素通过函数func返回一个新的 DSTREAM。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flatMap(func)</span><br></pre></td></tr></table></figure></p>
+<p>类似的map()，但每个输入项可以被映射到0或者更多的输出项<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(func)</span><br></pre></td></tr></table></figure></p>
+<p>在源DSTREAM上选择FUNC函数返回仅为true的记录, 最终返回一个新的DSTREAM 。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repartition(numPartitions)</span><br></pre></td></tr></table></figure></p>
+<p>通过创建更多或更少的分区改变平行于这个DSTREAM的层次。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">union(otherStream)</span><br></pre></td></tr></table></figure></p>
+<p>返回一个包含源DStream与其他DStream元素联合后新的DSTREAM。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count()</span><br></pre></td></tr></table></figure></p>
+<p>在源DSTREAM的每RDD的数目计数并返回包含单元素RDDS新的DSTREAM。返回的依然是DSTREAM,只不过里面只有count值<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduce(func)</span><br></pre></td></tr></table></figure></p>
+<p>使用函数func（有两个参数并返回一个结果）将源DStream中的每个RDD进行元素聚合,返回一个单元素RDDs新的DStream.该函数应该关联，使得它可以并行地进行计算。<br>例如对netcat上的数据求和可用下面代码:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines.flatMap(_.split(<span class="string">" "</span>)).map(w=&gt;w.toInt).reduce(_+_).foreachRDD(e=&gt;e.foreach(println))</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countByValue()</span><br></pre></td></tr></table></figure>
+<p>当请求DStream类型为K元素的DStream,返回类型为 （K，Long）的键值对的新DSTREAM,其中每个键的值就是它的源DSTREAM每个RDD频率。<br>例如我在netcat上面输入d d f f g g h h,然后执行下面源码:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines.flatMap(_.split(<span class="string">" "</span>)).countByValue().foreachRDD(e=&gt;e.foreach(println))</span><br></pre></td></tr></table></figure></p>
+<p>会得到如下结果<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">d</span>,<span class="number">2</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">h</span>,<span class="number">2</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">f</span>,<span class="number">2</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">g</span>,<span class="number">2</span>)</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduceByKey(func, [numTasks])</span><br></pre></td></tr></table></figure>
+<p>当一个类型为（K，V）键值对的DStream被调用的时候,返回类型为类型为（K，V）键值对的新DStream,其中每个键的值都是使用给定的reduce函数汇总。注意：默认情况下，使用Spark的并行任务默认号码（2为本地模式，并且在集群模式的数目是由配置属性确定 spark.default.parallelism）进行分组。你可以通过一个可选numTasks参数设置不同数量的任务。<br>这个我用wordcount的例子来说明,源码如下<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">ssc</span> =</span> <span class="keyword">new</span> <span class="type">StreamingContext</span>(<span class="string">"local[2]"</span>, <span class="string">"NetworkWordCount"</span>, <span class="type">Seconds</span>(<span class="number">5</span>))</span><br><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">lines</span> =</span> ssc.socketTextStream(<span class="string">"localhost"</span>, <span class="number">9999</span>)</span><br><span class="line"> lines.flatMap(_.split(<span class="string">" "</span>)).map(word =&gt; (word, <span class="number">1</span>)).reduceByKey(_ + _).print()</span><br><span class="line">ssc.start()</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中我们对netcat推过来的单词进行了一次map()操作,为每个单词计数为1,然后我们得到了(单词1,1),(单词2,1)…,然后我们进行reduceByKey(<em>+</em>)把key相同的value相加,和RDD中的reduceByKey操作类似.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">join(otherStream, [numTasks])</span><br></pre></td></tr></table></figure></p>
+<p>当被调用类型分别为的（K，V）和（K，W）键值对的2 个 DStream时，返回包含所有键值对每个键的元素,类型为（K，（V，W））键值对的一个新DSTREAM。<br>如下图例子</p>
+<p><img src="/Spark Streaming重要操作列举/1.png" alt=""></p>
+<p><img src="/Spark Streaming重要操作列举/2.png" alt=""><br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cogroup(otherStream, [numTasks])</span><br></pre></td></tr></table></figure></p>
+<p>当被调用的DStream含有(K, V) 和(K, W)键值对时,返回(K, Seq[V], Seq[W])元组的新DStream.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform(func)</span><br></pre></td></tr></table></figure></p>
+<p>通过源DSTREAM的每RDD应用RDD-to-RDD函数返回一个新的DSTREAM。这可以用来在DStream做任意RDD操作。<br>虽然transform()的一些操作可以用map()等函数代替,但是无疑transform()的灵活性更高.它可以用以API中没有的RDD操作,而且操作不暴露在外面.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updateStateByKey(func)</span><br></pre></td></tr></table></figure></p>
+<p>返回一个新 “状态”的DStream,所在每个键的状态是根据键的前一个状态和键的新值应用给定函数后的更新。这可以被用来维持每个键的任何状态数据。<br>该updateStateByKey()操作可以让你保持任意状态，同时不断有新的信息进行更新。要使用此功能，你就必须做两个步：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>定义检查点 - 用以进行检查更新,设置的应该是一个目录,里面会存每次读取的数据。  </span><br><span class="line"><span class="number">2.</span>定义状态更新函数 - 用一个函数指定如何使用先前的状态，从输入流中的新值更新状态。</span><br></pre></td></tr></table></figure></p>
+<p>下面我将写的Demo测试一下,我们前面写的wordcount只能对每次输入的数据进行计数,以前输入的数据就不在计数范围之内了,现在我们要做的就是要能对以前输入的数据也放在计数范围之内.源码如下:</p>
+<p><img src="/Spark Streaming重要操作列举/3.png" alt=""></p>
+<p>转换操作除了这些外还有一部分的窗口转换操作,允许你通过滑动窗口对数据进行转换.这些方法有如下一些:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window(windowLength, slideInterval)</span><br></pre></td></tr></table></figure></p>
+<p>返回一个基于源DStream的窗口批次计算得到新的 DStream.例如看下面代码:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines.flatMap(_.split(<span class="string">" "</span>)).window(<span class="type">Seconds</span>(<span class="number">30</span>),<span class="type">Seconds</span>(<span class="number">10</span>)).print()</span><br></pre></td></tr></table></figure></p>
+<p>这段代码用了window,它表示的是每10秒取一次Netcat上的最近30秒的数据.所以如果我们在netcat上按照每隔一秒输入递增数字(1,2,3,4,…)<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在第一次输出时会是<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span></span><br><span class="line">在第二次输出时会是<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,..<span class="number">.17</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">20</span></span><br><span class="line">在第三次输出时会是<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,..<span class="number">.27</span>,<span class="number">28</span>,<span class="number">29</span>,<span class="number">30</span></span><br><span class="line">在第四次输出时就是<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14.</span>..<span class="number">.38</span>,<span class="number">39</span>,<span class="number">40</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countByWindow(windowLength,slideInterval)</span><br></pre></td></tr></table></figure>
+<p>返回一个流中的元素的滑动窗口计数。<br>如果你前面创建StreamingContext的时候使用了含有batchDuration: Duration的重载,那么你的windowLength,slideInterval必须是你前面定义的batchDuration的倍数.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduceByWindow(func, windowLength,slideIn terval)</span><br></pre></td></tr></table></figure></p>
+<p>返回一个新的单件流，通过FUNC及在使用滑动间隔对数据流 中的元素聚合。该函数应该联合以便它可以正确地在并行计算。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduceByKeyAndWindow(func,windowLengt h, slideInterval, [numTasks])</span><br></pre></td></tr></table></figure></p>
+<p>当调用DStream（K，V）对时，返回新（K，V）对的DSTREAM ，其中每个键的值是根据给定的reduce函数FUNC 和滑动窗口批次汇总。注意：默认情况下，这里使用Spark的并行任务默认号码（2本地模式，并在集群模式下的数量由配置属性决定spark.default.parallelism）做分组。你可以通过一个可选 numTasks参数设置不同数量的任务。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines.flatMap(_.split(<span class="string">" "</span>)).map(x=&gt; (x, <span class="number">1</span>)).reduceByKeyAndWindow((a:<span class="type">Int</span>,b:<span class="type">Int</span>)=&gt;a+b,<span class="type">Seconds</span>(<span class="number">10</span>),<span class="type">Seconds</span>(<span class="number">5</span>)).print(<span class="number">100</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这段代码,也是wordcount的变形,是每隔5秒对最近10秒的单词进行wordcount操作.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">countByValueAndWindow(windowLength,sli deInterval, [numTasks])</span><br></pre></td></tr></table></figure></p>
+<p>当被调用的（K，V）对的DStream，返回新的（K，Long）对的DSTREAM，对其中每个键的值是其在一个滑动窗口频 率。和reduceByKeyAndWindow 一样，减少任务的数量是通过一个可选的参数进行配置。</p>
+<h2 id="离散流输出:">离散流输出:</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print()</span><br></pre></td></tr></table></figure>
+<p>首先在Dirver上打印每一批DStream数据中的10个元素。这对于开发和调试。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">saveAsObjectFiles(prefix, [suffix])</span><br></pre></td></tr></table></figure></p>
+<p>将DSTREAM的内容为序列化对象并保存为SequenceFile文件。根据产生在每个批次间隔的文件名前缀和后缀：“前缀TIME_IN_MS [.后缀]” 。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">saveAsTextFiles(prefix, [suffix])</span><br></pre></td></tr></table></figure></p>
+<p>保存此DSTREAM的内容作为文本文件。根据产生在每个批次间隔的文件名前缀和后缀：“前缀TIME_IN_MS [.后缀]” 。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">saveAsHadoopFiles(prefix, [suffix])</span><br></pre></td></tr></table></figure></p>
+<p>保存此DSTREAM的内容为Hadoop的文件。根据产生在每个批次间隔的文件名前缀和后缀：“前缀TIME_IN_MS [.后缀]” 。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foreachRDD(func)</span><br></pre></td></tr></table></figure></p>
+<p>最通用的输出操作，是使用函数FUNC，从流中生成的每个RDD。这个函数可以将每个RDD的数据推送到外部系统，如保存RDD为文件，或通过网络写到数据库。注意，函数FUNC是在driver执行，并且通常将具有在它的RDD行为，将强制执行RDDS的计算。<br>通常将数据写入到外部系统需要创建一个连接对象（如TCP连接到远程服务器），并用它来发送数据到远程系统。我们可以这样写:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dstream.foreachRDD(rdd =&gt; &#123;</span><br><span class="line">rdd.foreachPartition(partitionOfRecords =&gt; &#123;</span><br><span class="line">    <span class="comment">// ConnectionPool is a static, lazily initialized pool of connections           </span></span><br><span class="line">    <span class="function"><span class="keyword">val</span> <span class="title">connection</span> =</span> <span class="type">ConnectionPool</span>.getConnection()           </span><br><span class="line">    partitionOfRecords.foreach(record =&gt; connection.send(record))          </span><br><span class="line">    <span class="type">ConnectionPool</span>.returnConnection(connection) </span><br><span class="line">    <span class="comment">// return to the pool for future reuse    </span></span><br><span class="line">&#125;)   &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>DStreams由输出操作延迟方式执行的，就像RDDS由RDD actions延迟方式执行。具体来讲，DSTREAM输出操作内部的RDD actions迫使所接收的数据的处理。因此，如果你的应用程序没有任何输出操作，或在内部没有任何RDD action输出操作，如 dstream.foreachRDD（），那么什么都不会得到执行。系统将简单地接收的数据，并丢弃它.默认情况下，输出操作有一个就会执行一次。并且按照它们在它们的应用中定义的顺序执行。 </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spark/" rel="tag">#spark</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/23/PageRank算法详解/" rel="next" title="PageRank算法详解">
+                <i class="fa fa-chevron-left"></i> PageRank算法详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/23/朴素贝叶斯算法详解/" rel="prev" title="朴素贝叶斯算法详解">
+                朴素贝叶斯算法详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/06/23/Spark Streaming重要操作列举/"
+           data-title="Spark Streaming重要操作列举" data-url="http://ikexu.github.io/2017/06/23/Spark Streaming重要操作列举/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xt4et.com1.z0.glb.clouddn.com/%E5%8D%A1%E5%8D%A1%E8%A5%BF.jpg"
+               alt="kexu" />
+          <p class="site-author-name" itemprop="name">kexu</p>
+          <p class="site-description motion-element" itemprop="description">原谅我这一生不羁放纵爱自由</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/meitianxiaoxu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/meitianxiaoxu" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#离散流简介"><span class="nav-number">1.</span> <span class="nav-text">离散流简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离散流转换"><span class="nav-number">2.</span> <span class="nav-text">离散流转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离散流输出:"><span class="nav-number">3.</span> <span class="nav-text">离散流输出:</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ikexu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
