@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="spark,算法," />
+  <meta name="keywords" content="算法,spark," />
 
 
 
@@ -85,11 +85,13 @@
 
 
 <meta name="description" content="PageRank简介今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。PageRank，即网页排名，又称网页级别、Google左侧排">
+<meta name="keywords" content="算法,spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PageRank算法详解">
 <meta property="og:url" content="http://ikexu.github.io/2017/06/23/PageRank算法详解/index.html">
 <meta property="og:site_name" content="kexu blog">
 <meta property="og:description" content="PageRank简介今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。PageRank，即网页排名，又称网页级别、Google左侧排">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ikexu.github.io/PageRank算法详解/1.png">
 <meta property="og:image" content="http://ikexu.github.io/PageRank算法详解/2.png">
 <meta property="og:image" content="http://ikexu.github.io/PageRank算法详解/3.png">
@@ -100,6 +102,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PageRank算法详解">
 <meta name="twitter:description" content="PageRank简介今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。PageRank，即网页排名，又称网页级别、Google左侧排">
+<meta name="twitter:image" content="http://ikexu.github.io/PageRank算法详解/1.png">
 
 
 
@@ -304,7 +307,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-23T19:32:57+08:00" content="2017-06-23">
+            <time itemprop="dateCreated" datetime="2017-06-23T19:12:38+08:00" content="2017-06-23">
               2017-06-23
             </time>
           </span>
@@ -359,15 +362,15 @@
 
       
         <h2 id="PageRank简介">PageRank简介</h2><p>今天我将给大家介绍PageRank算法,Spark GraphX官方文档介绍的图计算算法主要有三个,分别是PageRank算法,ConnectedComponents(连通体)算法,TriangleCount(三角形计数)算法,这些算法包含在org.apache.spark.graphx.lib包中，可以被直接访问。<br>PageRank，即网页排名，又称网页级别、Google左侧排名或佩奇排名,最先是由Google提出的,为Google的精确搜索做出了很大贡献,它是一种根据网页之间相互的超链接计算的技术,可以计算网页排名,而在Spark Graphx里面.它能度量一个图中每个顶点的重要程度.应用的场景很广,比如说社交系统的可以据此来计算网友粉丝排名,计算网页排名等等.<br><a id="more"></a></p>
-<h2 id="算法原理">算法原理</h2><p>pagerank的思路是让链接”投票”,然后得出”投票”结果,比如说现在有A,B,C,D四个网页,B,C,D三个网页都指向A网页,那么A网页的PageRank值将是其它三个网页的总和,也就是<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">PR</span><span class="params">(A)</span></span>=<span class="function"><span class="title">PR</span><span class="params">(B)</span></span>+<span class="function"><span class="title">PR</span><span class="params">(C)</span></span>+<span class="function"><span class="title">PR</span><span class="params">(D)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>但是在实际情况中这样的”投票”方式是不准确的,因为每个网页的重要程度是不一样的,因此我们为每个网页加上了权值,现在我们在原来的假设上增加以下改变,我们将B网页指向C,D网页,将C网页也指向D网页,那么现在<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">PR</span><span class="params">(A)</span></span>=<span class="function"><span class="title">PR</span><span class="params">(B)</span></span>/<span class="number">3</span>+<span class="function"><span class="title">PR</span><span class="params">(C)</span></span>/<span class="number">2</span>+<span class="function"><span class="title">PR</span><span class="params">(D)</span></span>/<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>可以看出链接出去的网页将平分原网页的PR值,这只是最简单的情况,对复杂的情况来说我们可以将其转化为矩阵计算,假设有n个网页,每个网页的初始值为<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">N0=[<span class="number">1</span>/<span class="keyword">N</span>,<span class="number">1</span>/<span class="keyword">N</span>,<span class="number">1</span>/<span class="keyword">N</span>..<span class="number">.1</span>/<span class="keyword">N</span>],则<span class="keyword">N</span>(r)=A*<span class="keyword">N</span>(r-<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="算法原理">算法原理</h2><p>pagerank的思路是让链接”投票”,然后得出”投票”结果,比如说现在有A,B,C,D四个网页,B,C,D三个网页都指向A网页,那么A网页的PageRank值将是其它三个网页的总和,也就是<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PR(<span class="name">A</span>)=PR(<span class="name">B</span>)+PR(<span class="name">C</span>)+PR(<span class="name">D</span>)</div></pre></td></tr></table></figure></p>
+<p>但是在实际情况中这样的”投票”方式是不准确的,因为每个网页的重要程度是不一样的,因此我们为每个网页加上了权值,现在我们在原来的假设上增加以下改变,我们将B网页指向C,D网页,将C网页也指向D网页,那么现在<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PR(<span class="name">A</span>)=PR(<span class="name">B</span>)/3+PR(<span class="name">C</span>)/2+PR(<span class="name">D</span>)/1</div></pre></td></tr></table></figure></p>
+<p>可以看出链接出去的网页将平分原网页的PR值,这只是最简单的情况,对复杂的情况来说我们可以将其转化为矩阵计算,假设有n个网页,每个网页的初始值为<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">N0</span>=[<span class="number">1</span>/<span class="built_in">N</span>,<span class="number">1</span>/<span class="built_in">N</span>,<span class="number">1</span>/N...<span class="number">1</span>/<span class="built_in">N</span>],则<span class="built_in">N</span>(<span class="comment">r</span>)=A*<span class="built_in">N</span>(<span class="comment">r-1</span>)</div></pre></td></tr></table></figure></p>
 <p>而A是每个网页的链接矩阵,由数学知识可以知道PR是可以收敛的,将会无限趋近于N,这个N就是真实的排名情况,大致的原理就是这样.</p>
-<h2 id="Spark实现">Spark实现</h2><p>Spark PageRank的部分源码如下<br><img src="/PageRank算法详解/1.png" alt=""><br>现在我写个Demo测试一下PageRank,首先构造一个图<br><img src="/PageRank算法详解/2.png" alt=""><br>我们使用PageRank算法,可以调用GraphOps下面的<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pageRank<span class="keyword"></span><br><span class="line">static</span>PageRank</span><br><span class="line">personalizedPageRank<span class="keyword"></span><br><span class="line">static</span>PersonalizedPageRank</span><br></pre></td></tr></table></figure></p>
-<p>四个方法,它们内部封装了PageRank算法,我们直接使用就是<br>首先介绍第一种动态的PageRank,PageRank分动态和静态(staticPageRank),区别在于动态的PageRank是按照2次迭代的结果差异性来停止迭代,如果2次迭代的差异小于给定的参数趋近值则停止迭代,趋近值越小数据越精确；而静态的staticPageRank则是按照固定的次数迭代,方法参数中要带这个固定值,固定迭代次数越多,数据越精确.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.pageRank(<span class="number">0.001</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
-<p>此处用的是动态的方式,pageRank带的第一个参数是一个Double类型的趋近值,小于这个趋近值迭代结束,第二个参数是可选的,表示的是图的各顶点的初始PR值,如果不写则默认为0.15.在进行pagerank算法时只与图结构的链接关系有关,与边的值和顶点的值都没有关系,程序结果如下:<br><img src="/PageRank算法详解/3.png" alt=""><br>静态的实现方式为:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.staticPageRank(<span class="number">10</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
-<p>staticPageRank的参数也有2个,第一个是Int类型的表示迭代次数,第二个和pageRank一样也是Double类型的表示初始PR值,默认为0.15,程序结果如下:<br><img src="/PageRank算法详解/4.png" alt=""><br>剩下的personalizedPageRank,和staticPersonalizedPageRank,与前面一对不同的是它是个性化的pagerank,与普通pagerank不同的是,它能指定从哪个顶点开始迭代,而且可以解决”PR黑洞”问题,回到我们开始的假设问题,有A,B,C,D四个网页,B,C,D三个网页都指向A网页,在这里,A网页只有指向它的没有指出去的,而B,C,D网页只有指出去的没有指进来的,专业点说A的出度为0,这样每一次迭代都会吞噬掉B,C,D的PR值,最终结果就是B,C,D的PR值为0,而personalizedPageRank能将这种出度为0的网页的PR值按照一定的比例分配给别的网页,从而避免”黑洞”的出现<br>personalizedPageRank也分动静态之分,首先看动态的:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.personalizedPageRank(<span class="number">4</span>,<span class="number">0.01</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
-<p>它有三个参数,第一个参数表示的是开始迭代的源点VertexId,第二个参数表示的是Double类型的趋近值,小于这个趋近值迭代结束,第三个参数是可选的,为Double类型的表示初始PR值,默认也为0.15,程序结果如下:<br><img src="/PageRank算法详解/5.png" alt=""><br>动态个性化pagerank实现方式为:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph2.staticPersonalizedPageRank(<span class="number">4</span>,<span class="number">10</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Spark实现">Spark实现</h2><p>Spark PageRank的部分源码如下<br><img src="/PageRank算法详解/1.png" alt=""><br>现在我写个Demo测试一下PageRank,首先构造一个图<br><img src="/PageRank算法详解/2.png" alt=""><br>我们使用PageRank算法,可以调用GraphOps下面的<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pageRank</div><div class="line">staticPageRank</div><div class="line">personalizedPageRank</div><div class="line">staticPersonalizedPageRank</div></pre></td></tr></table></figure></p>
+<p>四个方法,它们内部封装了PageRank算法,我们直接使用就是<br>首先介绍第一种动态的PageRank,PageRank分动态和静态(staticPageRank),区别在于动态的PageRank是按照2次迭代的结果差异性来停止迭代,如果2次迭代的差异小于给定的参数趋近值则停止迭代,趋近值越小数据越精确；而静态的staticPageRank则是按照固定的次数迭代,方法参数中要带这个固定值,固定迭代次数越多,数据越精确.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">graph2.pageRank(<span class="number">0.001</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</div></pre></td></tr></table></figure></p>
+<p>此处用的是动态的方式,pageRank带的第一个参数是一个Double类型的趋近值,小于这个趋近值迭代结束,第二个参数是可选的,表示的是图的各顶点的初始PR值,如果不写则默认为0.15.在进行pagerank算法时只与图结构的链接关系有关,与边的值和顶点的值都没有关系,程序结果如下:<br><img src="/PageRank算法详解/3.png" alt=""><br>静态的实现方式为:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">graph2.staticPageRank(<span class="number">10</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</div></pre></td></tr></table></figure></p>
+<p>staticPageRank的参数也有2个,第一个是Int类型的表示迭代次数,第二个和pageRank一样也是Double类型的表示初始PR值,默认为0.15,程序结果如下:<br><img src="/PageRank算法详解/4.png" alt=""><br>剩下的personalizedPageRank,和staticPersonalizedPageRank,与前面一对不同的是它是个性化的pagerank,与普通pagerank不同的是,它能指定从哪个顶点开始迭代,而且可以解决”PR黑洞”问题,回到我们开始的假设问题,有A,B,C,D四个网页,B,C,D三个网页都指向A网页,在这里,A网页只有指向它的没有指出去的,而B,C,D网页只有指出去的没有指进来的,专业点说A的出度为0,这样每一次迭代都会吞噬掉B,C,D的PR值,最终结果就是B,C,D的PR值为0,而personalizedPageRank能将这种出度为0的网页的PR值按照一定的比例分配给别的网页,从而避免”黑洞”的出现<br>personalizedPageRank也分动静态之分,首先看动态的:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">graph2.personalizedPageRank(<span class="number">4</span>,<span class="number">0.01</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</div></pre></td></tr></table></figure></p>
+<p>它有三个参数,第一个参数表示的是开始迭代的源点VertexId,第二个参数表示的是Double类型的趋近值,小于这个趋近值迭代结束,第三个参数是可选的,为Double类型的表示初始PR值,默认也为0.15,程序结果如下:<br><img src="/PageRank算法详解/5.png" alt=""><br>动态个性化pagerank实现方式为:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">graph2.staticPersonalizedPageRank(<span class="number">4</span>,<span class="number">10</span>,<span class="number">0.5</span>).vertices.map(t=&gt;(t._1,t._2)).collect().foreach(println)</div></pre></td></tr></table></figure></p>
 <p>它也有三个参数,第一个和前面一样,表示的是开始迭代的源点VertexId,第二个参数表示的迭代的固定次数,第三个表示的是初始PR值,同样的是可选的,不写默认为0.15,程序结果如下:<br><img src="/PageRank算法详解/6.png" alt=""><br>好了,PageRank就介绍完了,你学会了吗?</p>
 
       
@@ -391,9 +394,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/spark/" rel="tag">#spark</a>
-          
             <a href="/tags/算法/" rel="tag">#算法</a>
+          
+            <a href="/tags/spark/" rel="tag">#spark</a>
           
         </div>
       
@@ -402,16 +405,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/23/OpenCV for Java On Linux 学习笔记/" rel="next" title="OpenCV for Java On linux学习笔记">
-                <i class="fa fa-chevron-left"></i> OpenCV for Java On linux学习笔记
+              <a href="/2017/06/23/Spark Streaming重要操作列举/" rel="next" title="Spark Streaming重要操作列举">
+                <i class="fa fa-chevron-left"></i> Spark Streaming重要操作列举
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/23/Spark Streaming重要操作列举/" rel="prev" title="Spark Streaming重要操作列举">
-                Spark Streaming重要操作列举 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/23/OpenCV for Java On Linux 学习笔记/" rel="prev" title="OpenCV for Java On linux学习笔记">
+                OpenCV for Java On linux学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
