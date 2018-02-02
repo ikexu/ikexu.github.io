@@ -1,0 +1,953 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="spark," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介12//获取Spark sql配置spark.sql(&quot;SET -v&quot;).show(numRows = 200, truncate = false)">
+<meta name="keywords" content="spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark Sql 参数">
+<meta property="og:url" content="http://ikexu.github.io/2018/02/02/Spark Sql参数/index.html">
+<meta property="og:site_name" content="kexu blog">
+<meta property="og:description" content="简介12//获取Spark sql配置spark.sql(&quot;SET -v&quot;).show(numRows = 200, truncate = false)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-02T16:39:10.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark Sql 参数">
+<meta name="twitter:description" content="简介12//获取Spark sql配置spark.sql(&quot;SET -v&quot;).show(numRows = 200, truncate = false)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://ikexu.github.io/2018/02/02/Spark Sql参数/"/>
+
+  <title> Spark Sql 参数 | kexu blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kexu blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'zEusoDy6zaKswXvbiSjc','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spark Sql 参数
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-02T23:17:08+08:00" content="2018-02-02">
+              2018-02-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spark/" itemprop="url" rel="index">
+                    <span itemprop="name">spark</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/02/Spark Sql参数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/02/Spark Sql参数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介">简介</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">//</span>获取Spark sql配置</div><div class="line">spark.sql<span class="params">("SET -v")</span><span class="string">.show</span><span class="params">(<span class="attr">numRows</span> = 200, <span class="attr">truncate</span> = false)</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="Spark_Sql_全量参数">Spark Sql 全量参数</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">key</th>
+<th style="text-align:center">value</th>
+<th style="text-align:center">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spark.sql.hive.version</td>
+<td style="text-align:center">1.2.11.2.1</td>
+<td style="text-align:center">Version of Hive used internally by Spark SQL.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.metastore.barrierPrefixes</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">A comma separated list of class prefixes that should explicitly be reloaded for each version of Hive that Spark SQL is communicating with. For example, Hive UDFs that are declared in a prefix that typically would be shared (i.e. <code>org.apache.spark.*</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.shuffle.partitions</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">The default number of partitions to use when shuffling data for joins or aggregations.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.metastorePartitionPruning</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When true, some predicates will be pushed down into the Hive metastore so that unmatching partitions can be eliminated earlier. This only affects Hive tables not converted to filesource relations (see HiveUtils.CONVERT_METASTORE_PARQUET and HiveUtils.CONVERT_METASTORE_ORC for more information).</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.streaming.metricsEnabled</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">Whether Dropwizard/Codahale metrics will be reported for active streaming queries.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.statistics.fallBackToHdfs</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">If the table statistics are not available from table metadata enable fall back to hdfs. This is useful in determining if a table is small enough to use auto broadcast joins.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.metastore.sharedPrefixes</td>
+<td style="text-align:center">com.mysql.jdbc,org.postgresql,com.microsoft.sqlserver,oracle.jdbc</td>
+<td style="text-align:center">A comma separated list of class prefixes that should be loaded using the classloader that is shared between Spark SQL and a specific version of Hive. An example of classes that should be shared is JDBC drivers that are needed to talk to the metastore. Other classes that need to be shared are those that interact with classes that are already shared. For example, custom appenders that are used by log4j.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.caseSensitiveInferenceMode</td>
+<td style="text-align:center">NEVER_INFER</td>
+<td style="text-align:center">Sets the action to take when a case-sensitive schema cannot be read from a Hive table’s properties. Although Spark SQL itself is not case-sensitive, Hive compatible file formats such as Parquet are. Spark SQL must use a case-preserving schema when querying any table backed by files containing case-sensitive field names or queries may not return accurate results. Valid options include INFER_AND_SAVE (the default mode– infer the case-sensitive schema from the underlying data files and write it back to the table properties), INFER_ONLY (infer the schema but don’t attempt to write it to the table properties) and NEVER_INFER (fallback to using the case-insensitive metastore schema instead of inferring).</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.respectSummaryFiles</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When true, we make assumption that all part-files of Parquet are consistent with summary files and we will ignore them when merging schema. Otherwise, if this is false, which is the default, we will merge all part-files. This should be considered as expert-only option, and shouldn’t be enabled before knowing what it means exactly.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.warehouse.dir</td>
+<td style="text-align:center">/user/hive/warehouse</td>
+<td style="text-align:center">The default location for managed databases and tables.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.orderByOrdinal</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When true, the ordinal numbers are treated as the position in the select list. When false, the ordinal numbers in order/sort by clause are ignored.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.adaptive.shuffle.        targetPostShuffleInputSize</td>
+<td style="text-align:center">67108864b</td>
+<td style="text-align:center">The target post-shuffle input size in bytes of a task.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.compression.codec</td>
+<td style="text-align:center">snappy</td>
+<td style="text-align:center">Sets the compression codec use when writing Parquet files. Acceptable values include: uncompressed, snappy, gzip, lzo.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.crossJoin.enabled</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When false, we will throw an error if a query contains a cartesian product without explicit CROSS JOIN syntax.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.thriftserver.ui.retainedStatements</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">The number of SQL statements kept in the JDBC/ODBC web UI history.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.convertMetastoreParquet.mergeSchema</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When true, also tries to merge possibly different but compatible Parquet schemas in different Parquet data files. This configuration is only effective when “spark.sql.hive.convertMetastoreParquet” is true.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.enableVectorizedReader</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">Enables vectorized parquet decoding.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.mergeSchema</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When true, the Parquet data source merges schemas collected from all data files, otherwise the schema is picked from the summary file or a random data file if no summary file is available.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.binaryAsString</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">Some other Parquet-producing systems, in particular Impala and older versions of Spark SQL, do not differentiate between binary data and strings when writing out the Parquet schema. This flag tells Spark SQL to interpret binary data as a string to provide compatibility with these systems.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.columnNameOfCorruptRecord</td>
+<td style="text-align:center">_corrupt_record</td>
+<td style="text-align:center">The name of internal column for storing raw/un-parsed JSON records that fail to parse.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.files.maxPartitionBytes</td>
+<td style="text-align:center">134217728</td>
+<td style="text-align:center">The maximum number of bytes to pack into a single partition when reading files.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.filesourcePartitionFileCacheSize</td>
+<td style="text-align:center">262144000</td>
+<td style="text-align:center">When nonzero, enable caching of partition file metadata in memory. All tables share a cache that can use up to specified num bytes for file metadata. This conf only has an effect when hive filesource partition management is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.autoBroadcastJoinThreshold</td>
+<td style="text-align:center">10485760</td>
+<td style="text-align:center">Configures the maximum size in bytes for a table that will be broadcast to all worker nodes when performing a join. By setting this value to -1 broadcasting can be disabled. Note that currently statistics are only supported for Hive Metastore tables where the command <code>ANALYZE TABLE &lt;tableName&gt; COMPUTE STATISTICS noscan</code> has been run, and file-based data source tables where the statistics are computed directly on the files of data.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.pivotMaxValues</td>
+<td style="text-align:center">10000</td>
+<td style="text-align:center">When doing a pivot without specifying values for the pivot column this is the maximum number of (distinct) values that will be collected without error.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.metastore.jars</td>
+<td style="text-align:center">builtin</td>
+<td style="text-align:center">Location of the jars that should be used to instantiate the HiveMetastoreClient.This property can be one of three options: “1. “builtin” Use Hive 1.2.1, which is bundled with the Spark assembly when <code>-Phive</code> is enabled. When this option is chosen, <code>spark.sql.hive.metastore.version</code> must be either <code>1.2.1</code> or not defined.2. “maven” Use Hive jars of specified version downloaded from Maven repositories.3. A classpath in the standard format for both Hive and Hadoop.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.sources.parallelPartitionDiscovery.threshold</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">The maximum number of files allowed for listing files at driver side. If the number of detected files exceeds this value during partition discovery, it tries to list the files with another Spark distributed job. This applies to Parquet, ORC, CSV, JSON and LibSVM data sources.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.broadcastTimeout</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">Timeout in seconds for the broadcast wait time in broadcast joins.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.sources.bucketing.enabled</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When false, we will treat bucketed table as normal table</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.optimizer.metadataOnly</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When true, enable the metadata-only query optimization that use the table’s metadata to produce the partition columns instead of table scans. It applies when all the columns scanned are partition columns and the query has an aggregate operator that satisfies distinct semantics.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.filterPushdown</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">Enables Parquet filter push-down optimization when set to true.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.adaptive.enabled</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When true, enable adaptive query execution.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.cacheMetadata</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">Turns on caching of Parquet schema metadata. Can speed up querying of static data.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.convertMetastoreParquet</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When set to false, Spark SQL will use the Hive SerDe for parquet tables instead of the built in support.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.groupByOrdinal</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When true, the ordinal numbers in group by clauses are treated as the position in the select list. When false, the ordinal numbers are ignored.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.thriftServer.async</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When set to true, Hive Thrift server executes SQL queries in an asynchronous way.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.thriftserver.scheduler.pool</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Set a Fair Scheduler pool for a JDBC client session.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.orc.filterPushdown</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When true, enable filter pushdown for ORC files.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.sources.default</td>
+<td style="text-align:center">parquet</td>
+<td style="text-align:center">The default data source to use in input/output.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.metastore.version</td>
+<td style="text-align:center">1.2.1</td>
+<td style="text-align:center">Version of the Hive metastore. Available options are <code>0.12.0</code>through <code>1.2.1</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.writeLegacyFormat</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">Whether to follow Parquet’s format specification when converting Parquet schema to Spark SQL schema and vice versa.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.verifyPartitionPath</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">When true, check all the partition paths under the table’s root directory when reading data stored in HDFS.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.streaming.numRecentProgressUpdates</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">The number of progress updates to retain for a streaming query</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.variable.substitute</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">This enables substitution using syntax like var{system:var} and ${env:var}.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.files.ignoreCorruptFiles</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">Whether to ignore corrupt files. If true, the Spark jobs will continue to run when encountering corrupted or non-existing and contents that have been read will still be returned.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.hive.manageFilesourcePartitions</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When true, enable metastore partition management for file source tables as well. This includes both datasource and converted Hive tables. When partition managment is enabled, datasource tables store partition in the Hive metastore, and use the metastore to prune partitions during query planning.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.streaming.checkpointLocation</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">The default location for storing checkpoint data for streaming queries.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.parquet.int96AsTimestamp</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">Some Parquet-producing systems, in particular Impala, store Timestamp into INT96. Spark would also store Timestamp as INT96 because we need to avoid precision lost of the nanoseconds field. This flag tells Spark SQL to interpret INT96 data as a timestamp to provide compatibility with these systems.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.sources.partitionColumnTypeInference.enabled</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">When true, automatically infer the data types for partitioned columns.</td>
+</tr>
+<tr>
+<td style="text-align:left">spark.sql.thriftserver.ui.retainedSessions</td>
+<td style="text-align:center">200</td>
+<td style="text-align:center">The number of SQL client sessions kept in the JDBC/ODBC web UI history.</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spark/" rel="tag"><i class="fa fa-tag"></i>spark</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/23/Spark Streaming重要操作列举/" rel="next" title="Spark Streaming重要操作列举">
+                <i class="fa fa-chevron-left"></i> Spark Streaming重要操作列举
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/03/Next主题字符超出表格/" rel="prev" title="Next主题下字符超出表格">
+                Next主题下字符超出表格 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/02/02/Spark Sql参数/"
+           data-title="Spark Sql 参数" data-url="http://ikexu.github.io/2018/02/02/Spark Sql参数/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/13676783?s=400&u=254d159840c0fb086ca1a2ceea234ad71a4a1830&v=4"
+               alt="kexu" />
+          <p class="site-author-name" itemprop="name">kexu</p>
+          <p class="site-description motion-element" itemprop="description">原谅我这一生不羁放纵爱自由</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ikexu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/meitianxiaoxu" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark_Sql_全量参数"><span class="nav-number"></span> <span class="nav-text">Spark Sql 全量参数</span></a></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ikexu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
