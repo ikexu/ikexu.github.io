@@ -1,0 +1,791 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="准备hadoop集群，zookeeper集群,ntp服务,java环境等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OuShu Database 集群安装">
+<meta property="og:url" content="http://ikexu.github.io/2018/02/03/OuShuDatabase集群安装/index.html">
+<meta property="og:site_name" content="kexu blog">
+<meta property="og:description" content="准备hadoop集群，zookeeper集群,ntp服务,java环境等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-03T10:14:25.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OuShu Database 集群安装">
+<meta name="twitter:description" content="准备hadoop集群，zookeeper集群,ntp服务,java环境等">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://ikexu.github.io/2018/02/03/OuShuDatabase集群安装/"/>
+
+  <title> OuShu Database 集群安装 | kexu blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">kexu blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'zEusoDy6zaKswXvbiSjc','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                OuShu Database 集群安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-03T17:55:58+08:00" content="2018-02-03">
+              2018-02-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/分布式数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式数据库</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/03/OuShuDatabase集群安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/02/03/OuShuDatabase集群安装/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="准备">准备</h2><p>hadoop集群，zookeeper集群,ntp服务,java环境等</p>
+<a id="more"></a>
+<p>主机及服务:</p>
+<table>
+<thead>
+<tr>
+<th>角色主机</th>
+<th>master01</th>
+<th>master02</th>
+<th>slave01</th>
+<th>slave02</th>
+<th>slave03</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HAWQ Master</td>
+<td>primary</td>
+<td>standby</td>
+<td>no</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>HAWQ Segment</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>NameNode</td>
+<td>standby</td>
+<td>active</td>
+<td>no</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>no</td>
+<td>no</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+<td>no</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h2 id="配置YUM源">配置YUM源</h2><p>例:先配置master01，ssh master01；su root.</p>
+<h3 id="在线">在线</h3><ul>
+<li><p>Redhat/CentOS 7.0, 7.1, 7.2系统并且包含avx指令请配置以下YUM源：</p>
+<figure class="highlight plain"><figcaption><span>-P</span><a href="/etc/yum.repos.d/">http://yum.oushu.io/oushurepo/oushudatabaserepo/centos7/3.0.1.0/oushu-database.repo```</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Redhat/CentOS 7.0, 7.1, 7.2系统但是不包含avx指令请配置以下YUM源：</div><div class="line"></div><div class="line">  ```wget -P /etc/yum.repos.d/ http://yum.oushu.io/oushurepo/oushudatabaserepo/centos7/3.0.1.0/oushu-database-noavx.repo</div></pre></td></tr></table></figure>
+</li>
+<li><p>Redhat/CentOS 7.3系统的用户并且包含avx命令请配置如下YUM源：</p>
+<figure class="highlight plain"><figcaption><span>-P</span><a href="/etc/yum.repos.d/">http://yum.oushu.io/oushurepo/oushudatabaserepo/centos7/3.0.1.0/oushu-database-cent73.repo```</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Redhat/CentOS 7.3系统的用户但是不包含avx命令请配置如下YUM源：</div><div class="line"></div><div class="line">  ```wget -P /etc/yum.repos.d/ http://yum.oushu.io/oushurepo/oushudatabaserepo/centos7/3.0.1.0/oushu-database-cent73-noavx.repo</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="离线">离线</h3><p>下载或拷贝安装包(目录:/data1/localrepo/)</p>
+<figure class="highlight plain"><figcaption><span>http://yum.oushu.io/oushurepo/tarball/release/oushu-database/centos7/3.0.1.0/oushu-database-full-3.0.1.0-rhel7-x86\_64.tar.gz```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">解压软件包并安装httpd</div><div class="line">```shell</div><div class="line">tar xzf oushu-database-full-3.0.1.0-rhel7-x86_64.tar.gz</div><div class="line">yum -y install httpd</div><div class="line">systemctl start httpd</div><div class="line">chown -R root:root /data1/localrepo //下载或拷贝的安装包目录</div></pre></td></tr></table></figure>
+<p>安装本地源</p>
+<figure class="highlight plain"><figcaption><span>```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">关闭selinux,重建yum缓存</div><div class="line"></div><div class="line">```shell</div><div class="line">setenforce 0</div><div class="line">yum clean all</div><div class="line">yum makecache</div><div class="line">rm -f /data1/localrepo/oushu-database-full-3.0.1.0-rhel7-x86_64.tar.gz // 可选</div></pre></td></tr></table></figure>
+<h3 id="其余节点同样按照该方法配置">其余节点同样按照该方法配置</h3><p>注意关闭selinux时执行:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sed -i "s/^SELINUX\=enforcing/SELINUX\=disabled/g" /etc/selinux/config</div><div class="line">setenforce 0</div></pre></td></tr></table></figure></p>
+<p>关闭防火墙：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">systemctl disable iptables</div><div class="line">systemctl stop firewalld</div><div class="line">systemctl disable firewalld</div></pre></td></tr></table></figure></p>
+<h3 id="安装HAWQ">安装HAWQ</h3><p>master01节点上，在配置文件/etc/sysctl.conf添加内容<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">kernel.shmmax = <span class="number">1000000000</span></div><div class="line">kernel.shmmni = <span class="number">4096</span></div><div class="line">kernel.shmall = <span class="number">4000000000</span></div><div class="line">kernel.sem = <span class="number">250</span> <span class="number">512000</span> <span class="number">100</span> <span class="number">2048</span></div><div class="line">kernel.sysrq = <span class="number">1</span></div><div class="line">kernel.core_uses_pid = <span class="number">1</span></div><div class="line">kernel.msgmnb = <span class="number">65536</span></div><div class="line">kernel.msgmax = <span class="number">65536</span></div><div class="line">kernel.msgmni = <span class="number">2048</span></div><div class="line">net.ipv4.tcp_syncookies = <span class="number">0</span></div><div class="line">net.ipv4.conf.<span class="section">default</span>.accept_source_route = <span class="number">0</span></div><div class="line">net.ipv4.tcp_tw_recycle = <span class="number">1</span></div><div class="line">net.ipv4.tcp_max_syn_backlog = <span class="number">200000</span></div><div class="line">net.ipv4.conf.all.arp_filter = <span class="number">1</span></div><div class="line">net.ipv4.ip_local_port_range = <span class="number">1281</span> <span class="number">65535</span></div><div class="line">net.core.netdev_max_backlog = <span class="number">200000</span></div><div class="line">fs.nr_open = <span class="number">3000000</span></div><div class="line">kernel.threads-max = <span class="number">798720</span></div><div class="line">kernel.pid_max = <span class="number">798720</span></div><div class="line"># increase network</div><div class="line">net.core.rmem_max=<span class="number">2097152</span></div><div class="line">net.core.wmem_max=<span class="number">2097152</span></div></pre></td></tr></table></figure></p>
+<p>复制该配置文件到所有节点，并使其生效(sysctl -p)</p>
+<p>master01节点上，创建文件/etc/security/limits.d/gpadmin.conf：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">* </span>soft nofile 1048576</div><div class="line"><span class="bullet">* </span>hard nofile 1048576</div><div class="line"><span class="bullet">* </span>soft nproc 131072</div><div class="line"><span class="bullet">* </span>hard nproc 131072</div></pre></td></tr></table></figure></p>
+<p>拷贝该配置文件到所有节点/etc/security/limits.d/目录下</p>
+<p>install hawq<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum install -y hawq</div><div class="line">source /usr/local/hawq/greenplum_path.sh  #设置hawq环境变量</div></pre></td></tr></table></figure></p>
+<p>创建hdfs目录，并赋予gpadmin权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hdfs dfs -mkdir -p /hawq/default_filespace</div><div class="line">hdfs dfs -chown -R gpadmin /hawq</div></pre></td></tr></table></figure>
+<p>在master01上，创建文件mhostfile，记录所有hawq的master和standby master的hostname，类似hostfile：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">master01</div><div class="line">master02</div></pre></td></tr></table></figure>
+<p>在master01上，创建shostfile，记录所有hawq的segment的hostname，类似hostfile：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">slave01</div><div class="line">slave02</div><div class="line">slave03</div></pre></td></tr></table></figure></p>
+<p>在master01上，使用“hawq ssh”在master和standby节点创建master元数据目录和临时文件目录，并授予gpadmin权限：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">创建master元数据目录</span></div><div class="line">hawq ssh -f mhostfile -e 'mkdir -p /data1/hawq/masterdd'</div><div class="line"></div><div class="line"><span class="meta">#</span><span class="bash">创建临时文件目录</span></div><div class="line">hawq ssh -f mhostfile -e 'mkdir -p /data1/hawq/tmp'</div><div class="line">hawq ssh -f mhostfile -e 'mkdir -p /data2/hawq/tmp'</div><div class="line"></div><div class="line">hawq ssh -f mhostfile -e 'chown -R gpadmin:gpadmin /data1/hawq'</div><div class="line">hawq ssh -f mhostfile -e 'chown -R gpadmin:gpadmin /data2/hawq'</div></pre></td></tr></table></figure>
+<p>在master01，使用“hawq ssh”在所有segment创建segment元数据目录和临时文件目录，并授予gpadmin权限：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash">创建segment元数据目录</span></div><div class="line">hawq ssh -f shostfile -e 'mkdir -p /data1/hawq/segmentdd'</div><div class="line"></div><div class="line"><span class="meta">#</span><span class="bash">创建临时文件目录</span></div><div class="line">hawq ssh -f shostfile -e 'mkdir -p /data1/hawq/tmp'</div><div class="line">hawq ssh -f shostfile -e 'mkdir -p /data2/hawq/tmp'</div><div class="line"></div><div class="line">hawq ssh -f shostfile -e 'chown -R gpadmin:gpadmin /data1/hawq'</div><div class="line">hawq ssh -f shostfile -e 'chown -R gpadmin:gpadmin /data2/hawq'</div></pre></td></tr></table></figure></p>
+<p>在master01，切换hawq用户，hawq相关的配置文件都需要使用该用户权限：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">su - gpadmin</span></div></pre></td></tr></table></figure></p>
+<p>在master01，修改/usr/local/hawq/etc/slaves，将所有HAWQ的segment节点的hostname写入slaves中，在本次安装中，应该写入slaves的有slave01,slave02,slave03内容为:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">slave01</div><div class="line">slave02</div><div class="line">slave03</div></pre></td></tr></table></figure>
+<p>修改/usr/local/hawq/etc/hdfs-client.xml,去掉ha注释<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.nameservices<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushu<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.namenodes.oushu<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>nn1,nn2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.oushu.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum2:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.oushu.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum1:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.oushu.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum2:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.oushu.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum1:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.domain.socket.path<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/var/lib/hadoop-hdfs/dn_socket<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Optional.  This is a path to a UNIX domain socket that will be used for communication between the DataNode and local HDFS clients.If the string "_PORT" is present in this path, it will be replaced by the TCP port of the DataNode.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在master01，修改/usr/local/hawq/etc/hawq-site.xml 注意：hawq_dfs_url中的oushu是dfs.nameservices的值</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_master_address_host<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_standby_address_host<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The host name of hawq standby master.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_dfs_url<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushu/hawq/default_filespace<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>URL for accessing HDFS.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_master_directory<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/data1/hawq/masterdd<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The directory of hawq master.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_segment_directory<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/data1/hawq/segmentdd<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The directory of hawq segment.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_master_temp_directory<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/data1/hawq/tmp,/data2/hawq/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The temporary directory reserved for hawq master. NOTE: please DONOT add " " between directories. <span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_segment_temp_directory<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/data1/hawq/tmp,/data2/hawq/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The temporary directory reserved for hawq segment. NOTE: please DONOT add " " between directories. <span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_rm_yarn_address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum1:8032<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The address of YARN resource manager server.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_rm_yarn_scheduler_address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>oushum1:8030<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The address of YARN scheduler server.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_rm_yarn_app_name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hawq<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The application name to register hawq resource manager in YARN.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hawq_re_cgroup_hierarchy_name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hawq<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>The name of the hierarchy to accomodate CGroup directories/files for resource enforcement.For example, /sys/fs/cgroup/cpu/hawq for CPU sub-system.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"> ...</div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>切换成root用户 su root<br>拷贝master01上/usr/local/hawq/etc中的配置文件到所有节点<br>在master01上，切换到gpadmin用户，创建hhostfile：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su - gpadmin</div><div class="line">source /usr/local/hawq/greenplum_path.sh  #设置hawq环境变量</div><div class="line">touch hhostfile</div></pre></td></tr></table></figure></p>
+<p>hhostfile文件记录所有HAWQ节点主机名称，内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">master01</div><div class="line">master02</div><div class="line">slave01</div><div class="line">slave02</div><div class="line">slave03</div></pre></td></tr></table></figure>
+<p>使用root用户登录到每台机器，修改gpadmin用户密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo echo 'password' | sudo passwd  --stdin gpadmin</div></pre></td></tr></table></figure>
+<p>针对gpadmin用户交换key，并且按照提示输入相应节点的gpadmin用户密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su - gpadmin</div><div class="line">source /usr/local/hawq/greenplum_path.sh  #设置hawq环境变量</div><div class="line">hawq ssh-exkeys -f hhostfile</div></pre></td></tr></table></figure>
+<p>在master01，使用gpadmin用户权限，初始化HAWQ集群， 当提示“Continue with HAWQ init”时，输入 Y：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hawq init cluster</div></pre></td></tr></table></figure>
+<p>在做HAWQ集群初始化的时候，需要保证在创建的/data*/hawq/目录下，masterdd和segmentdd都是空目录，在hadoop上创建的/hawq/default_filespace确保是空目录<br>另外，如果hawq init cluster失败，可以先执行下面的命令停止hawq集群，清空目录，找出问题原因后重新初始化。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hawq stop cluster</div></pre></td></tr></table></figure>
+<p>在HAWQ master节点，根据本次安装的配置，s使用下面的命令清空所有hawq目录，然后重建hawq子目录：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hawq ssh -f hhostfile -e 'rm -fr /data1/hawq/masterdd/*'</div><div class="line">hawq ssh -f hhostfile -e 'rm -fr /data1/hawq/segmentdd/*'</div></pre></td></tr></table></figure></p>
+<p>在HDFS namenode节点，使用下面的命令，清空/hawq/default_filespace，如果/hawq/default_filespace中有用户数据，注意备份数据，避免造成损失：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hdfs dfs -rm -f -r <span class="regexp">/hawq/</span>default_filespace<span class="regexp">/*</span></div></pre></td></tr></table></figure></p>
+<p>检查HDFS的参数配置是否正确，最好以gpadmin用户来检查。如果参数配置不正确的话，虽然有时HDFS可以正常启动，但在高负载情况下HDFS会出现错误。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su - gpadmin</div><div class="line">source /usr/local/hawq/greenplum_path.sh</div><div class="line">hawq check -f hostfile --hadoop /usr/hdp/current/hadoop-client/ --hdfs-ha</div></pre></td></tr></table></figure>
+<p>检查HAWQ是否运行正常：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">su - gpadmin</div><div class="line">source /usr/local/hawq/greenplum_path.sh</div><div class="line">psql -d postgres</div><div class="line">select * from gp_segment_configuration;  #确定所有节点是up状态</div><div class="line"></div><div class="line">create table t(i int);</div><div class="line">insert into t select generate_series(1,1000);</div><div class="line">select count(*) from t;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/03/Next主题字符超出表格/" rel="next" title="Next主题下字符超出表格">
+                <i class="fa fa-chevron-left"></i> Next主题下字符超出表格
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/02/03/OuShuDatabase集群安装/"
+           data-title="OuShu Database 集群安装" data-url="http://ikexu.github.io/2018/02/03/OuShuDatabase集群安装/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/13676783?s=400&u=254d159840c0fb086ca1a2ceea234ad71a4a1830&v=4"
+               alt="kexu" />
+          <p class="site-author-name" itemprop="name">kexu</p>
+          <p class="site-description motion-element" itemprop="description">原谅我这一生不羁放纵爱自由</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ikexu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/meitianxiaoxu" target="_blank" title="ZhiHu">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  ZhiHu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置YUM源"><span class="nav-number">2.</span> <span class="nav-text">配置YUM源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在线"><span class="nav-number">2.1.</span> <span class="nav-text">在线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线"><span class="nav-number">2.2.</span> <span class="nav-text">离线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其余节点同样按照该方法配置"><span class="nav-number">2.3.</span> <span class="nav-text">其余节点同样按照该方法配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装HAWQ"><span class="nav-number">2.4.</span> <span class="nav-text">安装HAWQ</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kexu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ikexu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
